@@ -12,11 +12,13 @@ from omni_proof.config.constants import (
     GEMINI_VISION_MODEL,
     MATRYOSHKA_DIMS,
 )
+from omni_proof.core.exceptions import EmbeddingError, MetadataExtractionError
+from omni_proof.core.interfaces import EmbeddingProvider
 
 logger = structlog.get_logger()
 
 
-class GeminiClient:
+class GeminiClient(EmbeddingProvider):
     """Wraps Gemini API calls with retry logic."""
 
     def __init__(self, api_key: str, max_retries: int = 3):
@@ -30,7 +32,7 @@ class GeminiClient:
         return genai.Client(api_key=self._api_key)
 
     async def generate_embedding(
-        self, asset_path: Path, dimensions: int = DEFAULT_EMBEDDING_DIMS
+        self, content: str | Path, dimensions: int = DEFAULT_EMBEDDING_DIMS
     ) -> list[float]:
         if dimensions not in MATRYOSHKA_DIMS:
             raise ValueError(f"dimensions must be one of {MATRYOSHKA_DIMS}, got {dimensions}")
@@ -39,7 +41,7 @@ class GeminiClient:
             try:
                 response = await self._client.aio.models.embed_content(
                     model=GEMINI_EMBEDDING_MODEL,
-                    contents=str(asset_path),
+                    contents=str(content),
                     config={"output_dimensionality": dimensions},
                 )
                 return response.embeddings[0].values
@@ -47,9 +49,10 @@ class GeminiClient:
                 wait = 2**attempt
                 logger.warning("embed_retry", attempt=attempt, wait=wait, error=str(e))
                 if attempt == self._max_retries - 1:
-                    raise
+                    raise EmbeddingError(
+                        f"Embedding failed after {self._max_retries} retries"
+                    ) from e
                 await asyncio.sleep(wait)
-        raise RuntimeError("Unreachable")
 
     async def extract_metadata(self, asset_path: Path, schema: type) -> Any:
         for attempt in range(self._max_retries):
@@ -67,6 +70,7 @@ class GeminiClient:
                 wait = 2**attempt
                 logger.warning("extract_retry", attempt=attempt, wait=wait, error=str(e))
                 if attempt == self._max_retries - 1:
-                    raise
+                    raise MetadataExtractionError(
+                        f"Metadata extraction failed after {self._max_retries} retries"
+                    ) from e
                 await asyncio.sleep(wait)
-        raise RuntimeError("Unreachable")

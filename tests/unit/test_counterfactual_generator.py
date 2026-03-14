@@ -1,8 +1,9 @@
 """Tests for counterfactual pair generation."""
 
+from unittest.mock import AsyncMock
+
 import numpy as np
 import pytest
-from unittest.mock import AsyncMock
 
 from omni_proof.causal.dice_dml.counterfactual_generator import (
     CounterfactualGenerator,
@@ -37,7 +38,10 @@ class TestCounterfactualGenerator:
     async def test_generate_returns_pair(self):
         mock_gemini = AsyncMock()
         mock_gemini.generate_embedding = AsyncMock(
-            side_effect=[list(np.random.randn(3072)), list(np.random.randn(3072) * 0.01 + np.random.randn(3072))]
+            side_effect=[
+                list(np.random.randn(3072)),
+                list(np.random.randn(3072) * 0.01 + np.random.randn(3072)),
+            ]
         )
         gen = CounterfactualGenerator(gemini_client=mock_gemini)
         pair = await gen.generate("/tmp/orig.jpg", "/tmp/cf.jpg", "color")

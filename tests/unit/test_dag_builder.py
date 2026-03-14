@@ -4,29 +4,31 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from omni_proof.causal.dag_builder import CausalDAGBuilder, TEMPLATES
+from omni_proof.causal.dag_builder import TEMPLATES, CausalDAGBuilder
 
 
 @pytest.fixture
 def sample_data():
     np.random.seed(42)
     n = 200
-    return pd.DataFrame({
-        "platform": np.random.choice(["youtube", "instagram"], n),
-        "audience_segment": np.random.choice(["18-24", "25-34"], n),
-        "season": np.random.choice(["summer", "winter"], n),
-        "budget": np.random.uniform(1000, 50000, n),
-        "logo_in_first_3s": np.random.binomial(1, 0.5, n),
-        "ctr": np.random.uniform(0.01, 0.10, n),
-        "warm_color_palette": np.random.binomial(1, 0.5, n),
-        "engagement_rate": np.random.uniform(0.05, 0.20, n),
-        "fast_audio_pacing": np.random.binomial(1, 0.5, n),
-        "conversion_rate": np.random.uniform(0.01, 0.05, n),
-        "product_category": np.random.choice(["tech", "fashion"], n),
-        "production_quality": np.random.uniform(1, 10, n),
-        "time_of_day": np.random.choice(["morning", "evening"], n),
-        "collider_var": np.random.uniform(0, 1, n),
-    })
+    return pd.DataFrame(
+        {
+            "platform": np.random.choice(["youtube", "instagram"], n),
+            "audience_segment": np.random.choice(["18-24", "25-34"], n),
+            "season": np.random.choice(["summer", "winter"], n),
+            "budget": np.random.uniform(1000, 50000, n),
+            "logo_in_first_3s": np.random.binomial(1, 0.5, n),
+            "ctr": np.random.uniform(0.01, 0.10, n),
+            "warm_color_palette": np.random.binomial(1, 0.5, n),
+            "engagement_rate": np.random.uniform(0.05, 0.20, n),
+            "fast_audio_pacing": np.random.binomial(1, 0.5, n),
+            "conversion_rate": np.random.uniform(0.01, 0.05, n),
+            "product_category": np.random.choice(["tech", "fashion"], n),
+            "production_quality": np.random.uniform(1, 10, n),
+            "time_of_day": np.random.choice(["morning", "evening"], n),
+            "collider_var": np.random.uniform(0, 1, n),
+        }
+    )
 
 
 @pytest.fixture

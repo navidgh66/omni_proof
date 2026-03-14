@@ -28,4 +28,6 @@ class ComplianceResult(BaseModel):
     passed: bool
     violations: list[dict] = Field(default_factory=list)
     evidence: list[str] = Field(default_factory=list)
-    score: float = Field(default=1.0, description="1.0 = fully compliant, 0.0 = fully non-compliant")
+    score: float = Field(
+        default=1.0, description="1.0 = fully compliant, 0.0 = fully non-compliant"
+    )

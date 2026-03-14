@@ -1,7 +1,10 @@
 """Causal effects API routes."""
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
+
+from omni_proof.api.deps import get_settings
+from omni_proof.config.settings import Settings
 
 router = APIRouter()
 
@@ -23,10 +26,11 @@ async def get_effect(treatment_name: str):
 
 
 @router.post("/analyze")
-async def analyze(request: AnalyzeRequest):
+async def analyze(request: AnalyzeRequest, settings: Settings = Depends(get_settings)):
     return {
-        "job_id": "pending",
+        "status": "not_configured",
+        "message": "Connect a data source to run causal analysis",
         "treatment": request.treatment,
         "outcome": request.outcome,
-        "status": "queued",
+        "confounders": request.confounders,
     }

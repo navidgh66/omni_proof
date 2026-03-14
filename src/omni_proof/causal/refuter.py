@@ -5,7 +5,7 @@ import warnings
 import numpy as np
 import structlog
 from econml.dml import LinearDML
-from lightgbm import LGBMRegressor, LGBMClassifier
+from lightgbm import LGBMClassifier, LGBMRegressor
 
 from omni_proof.causal.results import RefutationResult
 
@@ -32,7 +32,11 @@ class CausalRefuter:
         return float(est.ate())
 
     def placebo_test(
-        self, data, treatment_col: str, outcome_col: str, confounder_cols: list[str],
+        self,
+        data,
+        treatment_col: str,
+        outcome_col: str,
+        confounder_cols: list[str],
     ) -> RefutationResult:
         Y = data[outcome_col].values.astype(float)
         T = data[treatment_col].values.astype(float)
@@ -55,7 +59,11 @@ class CausalRefuter:
         )
 
     def subset_test(
-        self, data, treatment_col: str, outcome_col: str, confounder_cols: list[str],
+        self,
+        data,
+        treatment_col: str,
+        outcome_col: str,
+        confounder_cols: list[str],
         drop_fraction: float = 0.1,
     ) -> RefutationResult:
         Y = data[outcome_col].values.astype(float)
@@ -82,7 +90,11 @@ class CausalRefuter:
         )
 
     def random_confounder_test(
-        self, data, treatment_col: str, outcome_col: str, confounder_cols: list[str],
+        self,
+        data,
+        treatment_col: str,
+        outcome_col: str,
+        confounder_cols: list[str],
     ) -> RefutationResult:
         Y = data[outcome_col].values.astype(float)
         T = data[treatment_col].values.astype(float)

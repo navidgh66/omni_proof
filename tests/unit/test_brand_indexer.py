@@ -30,8 +30,10 @@ class TestBrandIndexer:
     @pytest.mark.asyncio
     async def test_index_brand_guide_page(self, indexer, mock_store):
         await indexer.index_brand_guide_page(
-            page_id="page-1", page_content_path="/tmp/page1.pdf",
-            section_type="logo_rules", page_number=1,
+            page_id="page-1",
+            page_content_path="/tmp/page1.pdf",
+            section_type="logo_rules",
+            page_number=1,
         )
         mock_store.upsert.assert_awaited_once()
         call_kwargs = mock_store.upsert.call_args.kwargs
@@ -42,7 +44,9 @@ class TestBrandIndexer:
     @pytest.mark.asyncio
     async def test_index_approved_creative(self, indexer, mock_store):
         await indexer.index_approved_creative(
-            asset_id="creative-1", asset_path="/tmp/ad.jpg", tags=["summer", "lifestyle"],
+            asset_id="creative-1",
+            asset_path="/tmp/ad.jpg",
+            tags=["summer", "lifestyle"],
         )
         call_kwargs = mock_store.upsert.call_args.kwargs
         assert call_kwargs["metadata"]["source_type"] == "approved_creative"
@@ -51,7 +55,9 @@ class TestBrandIndexer:
     @pytest.mark.asyncio
     async def test_index_color_palette(self, indexer, mock_store, mock_gemini):
         await indexer.index_color_palette(
-            palette_id="pal-1", hex_codes=["#FF6B35", "#004E89"], palette_name="Primary",
+            palette_id="pal-1",
+            hex_codes=["#FF6B35", "#004E89"],
+            palette_name="Primary",
         )
         mock_gemini.generate_embedding.assert_awaited_once()
         call_kwargs = mock_store.upsert.call_args.kwargs

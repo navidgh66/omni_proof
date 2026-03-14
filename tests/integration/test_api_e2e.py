@@ -19,21 +19,27 @@ class TestAPIE2E:
 
     def test_causal_analyze_flow(self, client):
         # Submit analysis
-        resp = client.post("/api/v1/causal/analyze", json={
-            "treatment": "logo_in_first_3s",
-            "outcome": "ctr",
-            "confounders": ["platform", "audience_segment", "budget"],
-        })
+        resp = client.post(
+            "/api/v1/causal/analyze",
+            json={
+                "treatment": "logo_in_first_3s",
+                "outcome": "ctr",
+                "confounders": ["platform", "audience_segment", "budget"],
+            },
+        )
         assert resp.status_code == 200
         assert resp.json()["status"] == "queued"
         assert resp.json()["treatment"] == "logo_in_first_3s"
 
     def test_generative_prompt_flow(self, client):
-        resp = client.post("/api/v1/generative/prompt", json={
-            "target_segment": "18-24",
-            "objective": "conversion",
-            "constraints": ["16:9 aspect ratio", "warm color palette"],
-        })
+        resp = client.post(
+            "/api/v1/generative/prompt",
+            json={
+                "target_segment": "18-24",
+                "objective": "conversion",
+                "constraints": ["16:9 aspect ratio", "warm color palette"],
+            },
+        )
         assert resp.status_code == 200
         prompt = resp.json()["prompt"]
         assert "18-24" in prompt

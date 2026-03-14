@@ -18,21 +18,21 @@ def synthetic_data():
     treatment = (confounder1 + np.random.randn(n) > 0).astype(float)
     outcome = 0.5 * treatment + 0.3 * confounder1 + 0.2 * confounder2 + np.random.randn(n) * 0.5
     segment = np.random.choice(["18-24", "25-34"], n)
-    return pd.DataFrame({
-        "treatment": treatment,
-        "outcome": outcome,
-        "conf1": confounder1,
-        "conf2": confounder2,
-        "segment": segment,
-    })
+    return pd.DataFrame(
+        {
+            "treatment": treatment,
+            "outcome": outcome,
+            "conf1": confounder1,
+            "conf2": confounder2,
+            "segment": segment,
+        }
+    )
 
 
 class TestDMLEstimator:
     def test_ate_recovers_effect(self, synthetic_data):
         est = DMLEstimator(cv=3)
-        result = est.estimate_ate(
-            synthetic_data, "treatment", "outcome", ["conf1", "conf2"]
-        )
+        result = est.estimate_ate(synthetic_data, "treatment", "outcome", ["conf1", "conf2"])
         assert isinstance(result, ATEResult)
         assert result.n_samples == 500
         # Known effect is ~0.5; should be in rough range

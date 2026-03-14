@@ -24,12 +24,12 @@ class TestIngestPipeline:
     @pytest.mark.asyncio
     async def test_ingest_batch_skips_failures(self):
         mock_gemini = AsyncMock()
-        mock_gemini.extract_metadata = AsyncMock(side_effect=[{"id": "1"}, Exception("fail"), {"id": "3"}])
+        mock_gemini.extract_metadata = AsyncMock(
+            side_effect=[{"id": "1"}, Exception("fail"), {"id": "3"}]
+        )
         mock_gemini.generate_embedding = AsyncMock(return_value=[0.1] * 3072)
 
         pipeline = IngestPipeline(gemini_client=mock_gemini)
-        results = await pipeline.ingest_batch(
-            [Path("a.mp4"), Path("b.mp4"), Path("c.mp4")], dict
-        )
+        results = await pipeline.ingest_batch([Path("a.mp4"), Path("b.mp4"), Path("c.mp4")], dict)
 
         assert len(results) == 2

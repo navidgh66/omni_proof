@@ -1,8 +1,10 @@
 """Indexes brand guideline documents into Pinecone for RAG retrieval."""
 
+from pathlib import Path
+
 import structlog
 
-from omni_proof.ingestion.gemini_client import GeminiClient
+from omni_proof.core.interfaces import EmbeddingProvider
 from omni_proof.storage.vector_store import VectorStore
 
 logger = structlog.get_logger()
@@ -11,12 +13,12 @@ logger = structlog.get_logger()
 class BrandIndexer:
     """Ingests brand guidelines, approved creatives, and palettes into vector store."""
 
-    def __init__(self, gemini_client: GeminiClient, vector_store: VectorStore):
+    def __init__(self, gemini_client: EmbeddingProvider, vector_store: VectorStore):
         self._gemini = gemini_client
         self._store = vector_store
 
     async def index_brand_guide_page(
-        self, page_id: str, page_content_path, section_type: str, page_number: int
+        self, page_id: str, page_content_path: str | Path, section_type: str, page_number: int
     ) -> None:
         embedding = await self._gemini.generate_embedding(page_content_path)
         metadata = {
@@ -30,7 +32,7 @@ class BrandIndexer:
         logger.info("indexed_brand_page", page_id=page_id, section=section_type)
 
     async def index_approved_creative(
-        self, asset_id: str, asset_path, tags: list[str]
+        self, asset_id: str, asset_path: str | Path, tags: list[str]
     ) -> None:
         embedding = await self._gemini.generate_embedding(asset_path)
         metadata = {

@@ -1,17 +1,19 @@
 """Brand compliance API routes."""
 
-from fastapi import APIRouter, UploadFile
+from fastapi import APIRouter, Depends, UploadFile
+
+from omni_proof.api.deps import get_settings
+from omni_proof.config.settings import Settings
 
 router = APIRouter()
 
 
 @router.post("/check")
-async def check_compliance(file: UploadFile):
+async def check_compliance(file: UploadFile, settings: Settings = Depends(get_settings)):
     return {
         "asset_id": file.filename,
-        "passed": True,
-        "violations": [],
-        "message": "Compliance check stub",
+        "status": "not_configured",
+        "message": "Configure embedding provider and brand guidelines to run compliance checks",
     }
 
 

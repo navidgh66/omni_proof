@@ -10,5 +10,6 @@ class Settings(BaseSettings):
     database_url: str = "sqlite+aiosqlite:///./omni_proof.db"
     embedding_dimensions: int = 3072
     log_level: str = "INFO"
+    cors_allowed_origins: list[str] = ["*"]
 
     model_config = {"env_prefix": "OMNI_PROOF_", "env_file": ".env"}

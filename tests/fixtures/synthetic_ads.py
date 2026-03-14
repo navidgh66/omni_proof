@@ -1,6 +1,6 @@
 """Generate synthetic ad metadata with planted treatment effects for E2E testing."""
 
-from datetime import date, datetime
+from datetime import date
 from uuid import uuid4
 
 import numpy as np
@@ -18,7 +18,9 @@ def generate_synthetic_dataset(n: int = 500, seed: int = 42) -> pd.DataFrame:
 
     # Treatment: logo in first 3 seconds (binary)
     # Confounded by platform and budget
-    treatment_prob = 0.3 + 0.2 * (platforms == "youtube").astype(float) + 0.1 * (budgets > 25000).astype(float)
+    treatment_prob = (
+        0.3 + 0.2 * (platforms == "youtube").astype(float) + 0.1 * (budgets > 25000).astype(float)
+    )
     logo_in_first_3s = rng.binomial(1, np.clip(treatment_prob, 0, 1), n).astype(float)
 
     # Outcome: CTR with TRUE causal effect of 0.5 from treatment
@@ -31,25 +33,27 @@ def generate_synthetic_dataset(n: int = 500, seed: int = 42) -> pd.DataFrame:
         + rng.randn(n) * 0.3
     )
 
-    return pd.DataFrame({
-        "asset_id": [str(uuid4()) for _ in range(n)],
-        "campaign_id": [str(uuid4()) for _ in range(n)],
-        "platform": platforms,
-        "audience_segment": segments,
-        "season": seasons,
-        "budget": budgets,
-        "logo_in_first_3s": logo_in_first_3s,
-        "ctr": ctr,
-        "logo_screen_ratio": rng.uniform(0.05, 0.3, n),
-        "scene_transitions": rng.randint(2, 15, n),
-        "cta_type": rng.choice(["urgency", "passive", "inquisitive"], n),
-        "audio_genre": rng.choice(["pop", "electronic", "ambient"], n),
-        "impressions": rng.randint(10000, 500000, n),
-        "clicks": (ctr * rng.randint(10000, 500000, n)).astype(int),
-        "conversions": rng.randint(10, 1000, n),
-        "roas": rng.uniform(1.0, 8.0, n),
-        "date": [date(2026, rng.randint(1, 13), rng.randint(1, 29)) for _ in range(n)],
-    })
+    return pd.DataFrame(
+        {
+            "asset_id": [str(uuid4()) for _ in range(n)],
+            "campaign_id": [str(uuid4()) for _ in range(n)],
+            "platform": platforms,
+            "audience_segment": segments,
+            "season": seasons,
+            "budget": budgets,
+            "logo_in_first_3s": logo_in_first_3s,
+            "ctr": ctr,
+            "logo_screen_ratio": rng.uniform(0.05, 0.3, n),
+            "scene_transitions": rng.randint(2, 15, n),
+            "cta_type": rng.choice(["urgency", "passive", "inquisitive"], n),
+            "audio_genre": rng.choice(["pop", "electronic", "ambient"], n),
+            "impressions": rng.randint(10000, 500000, n),
+            "clicks": (ctr * rng.randint(10000, 500000, n)).astype(int),
+            "conversions": rng.randint(10, 1000, n),
+            "roas": rng.uniform(1.0, 8.0, n),
+            "date": [date(2026, rng.randint(1, 13), rng.randint(1, 29)) for _ in range(n)],
+        }
+    )
 
 
 SAMPLE_BRAND_GUIDE = {
@@ -59,9 +63,21 @@ SAMPLE_BRAND_GUIDE = {
     "logo_min_clear_space_px": 24,
     "tone": "warm, contemporary, professional",
     "rules": [
-        {"section": "color_palette", "description": "Primary palette: #FF6B35 (accent), #004E89 (base), #FFFFFF (background)"},
-        {"section": "typography", "description": "Headlines: Playfair Display Bold. Body: Inter Regular 16px minimum"},
-        {"section": "logo_rules", "description": "Minimum clear space of 24px around logo. Never distort aspect ratio."},
-        {"section": "tone", "description": "Warm, contemporary aesthetic. Avoid cold or clinical imagery."},
+        {
+            "section": "color_palette",
+            "description": "Primary palette: #FF6B35 (accent), #004E89 (base), #FFFFFF (background)",
+        },
+        {
+            "section": "typography",
+            "description": "Headlines: Playfair Display Bold. Body: Inter Regular 16px minimum",
+        },
+        {
+            "section": "logo_rules",
+            "description": "Minimum clear space of 24px around logo. Never distort aspect ratio.",
+        },
+        {
+            "section": "tone",
+            "description": "Warm, contemporary aesthetic. Avoid cold or clinical imagery.",
+        },
     ],
 }

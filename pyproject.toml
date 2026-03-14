@@ -7,6 +7,21 @@ name = "omni-proof"
 version = "0.1.0"
 description = "Causal-Multimodal Engine for Creative Performance Attribution"
 requires-python = ">=3.11"
+authors = [{name = "OmniProof Contributors"}]
+license = {text = "MIT"}
+readme = "README.md"
+keywords = ["causal-inference", "creative-attribution", "multimodal", "embeddings"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 dependencies = [
     "google-genai>=1.0.0",
     "pydantic>=2.0.0",

@@ -49,10 +49,12 @@ class TestPineconeUpsert:
 class TestPineconeSearch:
     @pytest.mark.asyncio
     async def test_search_returns_formatted_results(self, store, mock_index):
-        mock_index.query.return_value = MagicMock(matches=[
-            MagicMock(id="id1", score=0.95, metadata={"platform": "youtube"}),
-            MagicMock(id="id2", score=0.87, metadata={"platform": "instagram"}),
-        ])
+        mock_index.query.return_value = MagicMock(
+            matches=[
+                MagicMock(id="id1", score=0.95, metadata={"platform": "youtube"}),
+                MagicMock(id="id2", score=0.87, metadata={"platform": "instagram"}),
+            ]
+        )
 
         results = await store.search(query_embedding=[0.1] * 3072, top_k=5)
 

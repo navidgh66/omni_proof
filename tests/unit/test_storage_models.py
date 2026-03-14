@@ -6,7 +6,12 @@ from uuid import uuid4
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-from omni_proof.storage.models import Base, CampaignRecord, CreativeMetadataRecord, PerformanceRecord
+from omni_proof.storage.models import (
+    Base,
+    CampaignRecord,
+    CreativeMetadataRecord,
+    PerformanceRecord,
+)
 
 
 def _engine():

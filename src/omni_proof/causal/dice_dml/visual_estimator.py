@@ -5,7 +5,7 @@ import warnings
 import numpy as np
 import structlog
 from econml.dml import LinearDML
-from lightgbm import LGBMRegressor, LGBMClassifier
+from lightgbm import LGBMClassifier, LGBMRegressor
 
 from omni_proof.causal.dice_dml.disentangler import TreatmentDisentangler
 from omni_proof.causal.results import ATEResult

@@ -6,7 +6,6 @@ from unittest.mock import AsyncMock
 import pytest
 
 from omni_proof.orchestration.compliance_chain import ComplianceChain
-from omni_proof.orchestration.models import Violation
 from omni_proof.rag.brand_retriever import BrandRetriever
 from omni_proof.rag.models import BrandAsset
 
@@ -16,10 +15,22 @@ class TestBrandComplianceE2E:
     def compliant_chain(self):
         mock_gemini = AsyncMock()
         mock_retriever = AsyncMock(spec=BrandRetriever)
-        mock_retriever.get_guidelines_for_asset = AsyncMock(return_value=[
-            BrandAsset(asset_id="guide-1", source_type="guideline", section_type="color_palette", score=0.95),
-            BrandAsset(asset_id="guide-2", source_type="guideline", section_type="logo_rules", score=0.90),
-        ])
+        mock_retriever.get_guidelines_for_asset = AsyncMock(
+            return_value=[
+                BrandAsset(
+                    asset_id="guide-1",
+                    source_type="guideline",
+                    section_type="color_palette",
+                    score=0.95,
+                ),
+                BrandAsset(
+                    asset_id="guide-2",
+                    source_type="guideline",
+                    section_type="logo_rules",
+                    score=0.90,
+                ),
+            ]
+        )
         return ComplianceChain(gemini_client=mock_gemini, brand_retriever=mock_retriever)
 
     @pytest.mark.asyncio

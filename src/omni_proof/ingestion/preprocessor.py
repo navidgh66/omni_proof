@@ -28,9 +28,7 @@ class AssetPreprocessor:
             return []
         if total_pages <= max_pages:
             return [(0, total_pages)]
-        return [
-            (i, min(i + max_pages, total_pages)) for i in range(0, total_pages, max_pages)
-        ]
+        return [(i, min(i + max_pages, total_pages)) for i in range(0, total_pages, max_pages)]
 
     def compute_video_chunks(
         self, duration_seconds: float, has_audio: bool = True

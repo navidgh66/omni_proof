@@ -4,22 +4,28 @@ import warnings
 
 import numpy as np
 import structlog
-from econml.dml import LinearDML, CausalForestDML
-from lightgbm import LGBMRegressor, LGBMClassifier
+from econml.dml import CausalForestDML, LinearDML
+from lightgbm import LGBMClassifier, LGBMRegressor
 
+from omni_proof.causal.base import Estimator
 from omni_proof.causal.results import ATEResult, CATEResult, EffectEstimate
 
 logger = structlog.get_logger()
 
 
-class DMLEstimator:
+class DMLEstimator(Estimator):
     """Wraps EconML DML estimators for causal effect estimation."""
 
-    def __init__(self, cv: int = 5):
+    def __init__(self, cv: int = 5, n_estimators: int = 50):
         self._cv = cv
+        self._n_estimators = n_estimators
 
     def estimate_ate(
-        self, data, treatment_col: str, outcome_col: str, confounder_cols: list[str],
+        self,
+        data,
+        treatment_col: str,
+        outcome_col: str,
+        confounder_cols: list[str],
     ) -> ATEResult:
         Y = data[outcome_col].values.astype(float)
         T = data[treatment_col].values.astype(float)
@@ -28,8 +34,8 @@ class DMLEstimator:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             est = LinearDML(
-                model_y=LGBMRegressor(n_estimators=50, verbose=-1),
-                model_t=LGBMClassifier(n_estimators=50, verbose=-1),
+                model_y=LGBMRegressor(n_estimators=self._n_estimators, verbose=-1),
+                model_t=LGBMClassifier(n_estimators=self._n_estimators, verbose=-1),
                 discrete_treatment=True,
                 cv=self._cv,
                 random_state=42,
@@ -39,7 +45,7 @@ class DMLEstimator:
         ate = float(est.ate())
         ci = est.ate_interval(alpha=0.05)
         inference = est.effect_inference()
-        p_val = float(inference.pvalue().mean()) if hasattr(inference, 'pvalue') else 0.0
+        p_val = float(inference.pvalue().mean()) if hasattr(inference, "pvalue") else 0.0
 
         return ATEResult(
             treatment=treatment_col,
@@ -52,8 +58,12 @@ class DMLEstimator:
         )
 
     def estimate_cate(
-        self, data, treatment_col: str, outcome_col: str,
-        confounder_cols: list[str], segment_col: str,
+        self,
+        data,
+        treatment_col: str,
+        outcome_col: str,
+        confounder_cols: list[str],
+        segment_col: str,
     ) -> CATEResult:
         Y = data[outcome_col].values.astype(float)
         T = data[treatment_col].values.astype(float)
@@ -62,12 +72,12 @@ class DMLEstimator:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             est = CausalForestDML(
-                model_y=LGBMRegressor(n_estimators=50, verbose=-1),
-                model_t=LGBMClassifier(n_estimators=50, verbose=-1),
+                model_y=LGBMRegressor(n_estimators=self._n_estimators, verbose=-1),
+                model_t=LGBMClassifier(n_estimators=self._n_estimators, verbose=-1),
                 discrete_treatment=True,
                 cv=self._cv,
                 random_state=42,
-                n_estimators=100,
+                n_estimators=self._n_estimators * 2,
             )
             est.fit(Y, T, X=W, W=W)
 

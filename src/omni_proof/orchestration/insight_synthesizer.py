@@ -42,7 +42,9 @@ class InsightSynthesizer:
                 f"{treatment_label} causes a {best_effect * 100:+.1f}% uplift "
                 f"for the {best_segment} demographic"
             )
-            recommendation = f"Apply {treatment_label.lower()} for campaigns targeting {best_segment}."
+            recommendation = (
+                f"Apply {treatment_label.lower()} for campaigns targeting {best_segment}."
+            )
         else:
             finding = f"No statistically significant effect found for {treatment_label}."
             recommendation = "No action recommended based on current data."

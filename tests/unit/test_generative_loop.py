@@ -7,8 +7,10 @@ class TestGenerativePromptBuilder:
     def test_basic_prompt(self):
         builder = GenerativePromptBuilder()
         prompt = builder.build_prompt(
-            cate_insights=[], brand_rules=[],
-            target_segment="18-24", objective="engagement",
+            cate_insights=[],
+            brand_rules=[],
+            target_segment="18-24",
+            objective="engagement",
         )
         assert "18-24" in prompt
         assert "engagement" in prompt
@@ -38,7 +40,8 @@ class TestGenerativePromptBuilder:
     def test_prompt_with_constraints(self):
         builder = GenerativePromptBuilder()
         prompt = builder.build_prompt(
-            cate_insights=[], brand_rules=[],
+            cate_insights=[],
+            brand_rules=[],
             target_segment="18-24",
             constraints=["16:9 aspect ratio", "Max 30 seconds"],
         )

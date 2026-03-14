@@ -1,7 +1,6 @@
 """Tests for visual DML estimator."""
 
 import numpy as np
-import pytest
 
 from omni_proof.causal.dice_dml.visual_estimator import VisualDMLEstimator
 from omni_proof.causal.results import ATEResult

@@ -18,10 +18,24 @@ def mock_gemini():
 @pytest.fixture
 def mock_store():
     store = AsyncMock()
-    store.search = AsyncMock(return_value=[
-        {"id": "asset-1", "score": 0.95, "metadata": {"source_type": "guideline", "section_type": "logo_rules", "page_number": 2}},
-        {"id": "asset-2", "score": 0.88, "metadata": {"source_type": "approved_creative", "tags": ["summer"]}},
-    ])
+    store.search = AsyncMock(
+        return_value=[
+            {
+                "id": "asset-1",
+                "score": 0.95,
+                "metadata": {
+                    "source_type": "guideline",
+                    "section_type": "logo_rules",
+                    "page_number": 2,
+                },
+            },
+            {
+                "id": "asset-2",
+                "score": 0.88,
+                "metadata": {"source_type": "approved_creative", "tags": ["summer"]},
+            },
+        ]
+    )
     return store
 
 
@@ -46,9 +60,19 @@ class TestBrandRetriever:
 
     @pytest.mark.asyncio
     async def test_get_guidelines_filters_by_type(self, retriever, mock_store):
-        mock_store.search = AsyncMock(return_value=[
-            {"id": "g-1", "score": 0.92, "metadata": {"source_type": "guideline", "section_type": "typography", "page_number": 5}},
-        ])
+        mock_store.search = AsyncMock(
+            return_value=[
+                {
+                    "id": "g-1",
+                    "score": 0.92,
+                    "metadata": {
+                        "source_type": "guideline",
+                        "section_type": "typography",
+                        "page_number": 5,
+                    },
+                },
+            ]
+        )
         results = await retriever.get_guidelines_for_asset(Path("/tmp/ad.mp4"))
         assert len(results) == 1
         assert results[0].source_type == "guideline"

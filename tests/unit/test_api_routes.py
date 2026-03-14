@@ -30,16 +30,29 @@ class TestCausalRoutes:
         assert resp.json()["treatment"] == "logo_timing"
 
     def test_analyze(self, client):
-        resp = client.post("/api/v1/causal/analyze", json={
-            "treatment": "fast_pacing",
-            "outcome": "ctr",
-            "confounders": ["platform", "audience"],
-        })
+        resp = client.post(
+            "/api/v1/causal/analyze",
+            json={
+                "treatment": "fast_pacing",
+                "outcome": "ctr",
+                "confounders": ["platform", "audience"],
+            },
+        )
         assert resp.status_code == 200
-        assert resp.json()["status"] == "queued"
+        assert resp.json()["status"] == "not_configured"
+        assert resp.json()["treatment"] == "fast_pacing"
+        assert resp.json()["outcome"] == "ctr"
 
 
 class TestComplianceRoutes:
+    def test_check_compliance(self, client):
+        # Create a mock file upload
+        files = {"file": ("test_asset.jpg", b"fake image data", "image/jpeg")}
+        resp = client.post("/api/v1/compliance/check", files=files)
+        assert resp.status_code == 200
+        assert resp.json()["status"] == "not_configured"
+        assert resp.json()["asset_id"] == "test_asset.jpg"
+
     def test_list_reports(self, client):
         resp = client.get("/api/v1/compliance/reports")
         assert resp.status_code == 200
@@ -63,11 +76,14 @@ class TestInsightsRoutes:
 
 class TestGenerativeRoutes:
     def test_generate_prompt(self, client):
-        resp = client.post("/api/v1/generative/prompt", json={
-            "target_segment": "18-24",
-            "objective": "conversion",
-            "constraints": ["16:9 aspect ratio"],
-        })
+        resp = client.post(
+            "/api/v1/generative/prompt",
+            json={
+                "target_segment": "18-24",
+                "objective": "conversion",
+                "constraints": ["16:9 aspect ratio"],
+            },
+        )
         assert resp.status_code == 200
         prompt = resp.json()["prompt"]
         assert "18-24" in prompt

@@ -6,7 +6,6 @@ from pydantic import BaseModel
 from omni_proof.api.generative_loop import GenerativePromptBuilder
 
 router = APIRouter()
-_builder = GenerativePromptBuilder()
 
 
 class PromptRequest(BaseModel):
@@ -17,7 +16,8 @@ class PromptRequest(BaseModel):
 
 @router.post("/prompt")
 async def generate_prompt(request: PromptRequest):
-    prompt = _builder.build_prompt(
+    builder = GenerativePromptBuilder()
+    prompt = builder.build_prompt(
         cate_insights=[],
         brand_rules=[],
         target_segment=request.target_segment,

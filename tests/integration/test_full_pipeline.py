@@ -1,12 +1,11 @@
 """End-to-end test: synthetic data -> causal estimation -> insight synthesis."""
 
-import pytest
-import numpy as np
 import pandas as pd
+import pytest
 
 from omni_proof.causal.dag_builder import CausalDAGBuilder
-from omni_proof.causal.identifier import CausalIdentifier
 from omni_proof.causal.estimator import DMLEstimator
+from omni_proof.causal.identifier import CausalIdentifier
 from omni_proof.causal.refuter import CausalRefuter
 from omni_proof.causal.results import ATEResult, CATEResult
 from omni_proof.orchestration.insight_synthesizer import InsightSynthesizer
@@ -46,11 +45,11 @@ class TestFullCausalPipeline:
         """The planted effect is 0.5. DML should recover it within CI."""
         cat_cols = ["platform", "audience_segment"]
         encoded = _encode_categoricals(data, cat_cols)
-        confounder_cols = [c for c in encoded.columns if c.startswith(("platform_", "audience_segment_"))] + ["budget"]
+        confounder_cols = [
+            c for c in encoded.columns if c.startswith(("platform_", "audience_segment_"))
+        ] + ["budget"]
         estimator = DMLEstimator(cv=3)
-        result = estimator.estimate_ate(
-            encoded, "logo_in_first_3s", "ctr", confounder_cols
-        )
+        result = estimator.estimate_ate(encoded, "logo_in_first_3s", "ctr", confounder_cols)
         assert isinstance(result, ATEResult)
         # Planted effect is 0.5; allow generous range
         assert 0.0 < result.ate < 1.5, f"ATE {result.ate} outside expected range"
@@ -62,8 +61,7 @@ class TestFullCausalPipeline:
         confounder_cols = [c for c in encoded.columns if c.startswith("platform_")] + ["budget"]
         estimator = DMLEstimator(cv=3)
         result = estimator.estimate_cate(
-            encoded, "logo_in_first_3s", "ctr",
-            confounder_cols, "audience_segment"
+            encoded, "logo_in_first_3s", "ctr", confounder_cols, "audience_segment"
         )
         assert isinstance(result, CATEResult)
         assert "18-24" in result.segments
@@ -72,15 +70,21 @@ class TestFullCausalPipeline:
 
     def test_refutation_suite_passes(self, data):
         encoded = _encode_categoricals(data, ["platform", "audience_segment"])
-        confounders = [c for c in encoded.columns if c.startswith(("platform_", "audience_segment_"))] + ["budget"]
+        confounders = [
+            c for c in encoded.columns if c.startswith(("platform_", "audience_segment_"))
+        ] + ["budget"]
         refuter = CausalRefuter(cv=2)
 
         placebo = refuter.placebo_test(encoded, "logo_in_first_3s", "ctr", confounders)
         subset = refuter.subset_test(encoded, "logo_in_first_3s", "ctr", confounders)
-        random_conf = refuter.random_confounder_test(encoded, "logo_in_first_3s", "ctr", confounders)
+        random_conf = refuter.random_confounder_test(
+            encoded, "logo_in_first_3s", "ctr", confounders
+        )
 
-        assert subset.passed, f"Subset test failed: orig={subset.original_effect}, new={subset.new_effect}"
-        assert random_conf.passed, f"Random confounder test failed"
+        assert subset.passed, (
+            f"Subset test failed: orig={subset.original_effect}, new={subset.new_effect}"
+        )
+        assert random_conf.passed, "Random confounder test failed"
 
     def test_full_pipeline_dag_to_brief(self, data):
         """Complete flow: DAG -> identify -> estimate CATE -> synthesize brief."""
@@ -103,8 +107,7 @@ class TestFullCausalPipeline:
         confounder_cols = [c for c in encoded.columns if c.startswith("platform_")] + ["budget"]
         estimator = DMLEstimator(cv=3)
         cate = estimator.estimate_cate(
-            encoded, "logo_in_first_3s", "ctr",
-            confounder_cols, "audience_segment"
+            encoded, "logo_in_first_3s", "ctr", confounder_cols, "audience_segment"
         )
         cate.refutation_passed = True  # Mark as validated
 
