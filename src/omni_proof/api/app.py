@@ -26,7 +26,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app = FastAPI(
         title="OmniProof",
         description="Causal-Multimodal Engine for Creative Performance Attribution",
-        version="0.1.0",
+        version="0.0.1",
         lifespan=lifespan,
     )
     app.state.settings = settings
