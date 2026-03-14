@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from omni_proof.api.routes import causal, compliance, generative, insights
+from omni_proof.api.routes import brand, causal, compliance, generative, insights
 from omni_proof.config.settings import Settings
 
 
@@ -32,6 +32,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    app.include_router(brand.router, prefix="/api/v1/brand", tags=["brand"])
     app.include_router(causal.router, prefix="/api/v1/causal", tags=["causal"])
     app.include_router(compliance.router, prefix="/api/v1/compliance", tags=["compliance"])
     app.include_router(insights.router, prefix="/api/v1/insights", tags=["insights"])

@@ -41,6 +41,18 @@ class TestEmbeddingGeneration:
         with pytest.raises(ValueError, match="dimensions must be one of"):
             await client.generate_embedding(Path("test.jpg"), dimensions=999)
 
+    @pytest.mark.asyncio
+    async def test_task_type_passed_to_config(self, client):
+        mock_response = MagicMock()
+        mock_response.embeddings = [MagicMock(values=[0.1] * 3072)]
+        client._client = MagicMock()
+        client._client.aio.models.embed_content = AsyncMock(return_value=mock_response)
+
+        await client.generate_embedding(Path("test.jpg"), task_type="SEMANTIC_SIMILARITY")
+
+        call_args = client._client.aio.models.embed_content.call_args
+        assert call_args.kwargs["config"]["task_type"] == "SEMANTIC_SIMILARITY"
+
 
 class TestMetadataExtraction:
     @pytest.mark.asyncio

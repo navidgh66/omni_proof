@@ -88,3 +88,27 @@ class TestGenerativeRoutes:
         prompt = resp.json()["prompt"]
         assert "18-24" in prompt
         assert "conversion" in prompt
+
+
+class TestBrandRoutes:
+    def test_extract_brand(self, client):
+        resp = client.post(
+            "/api/v1/brand/extract",
+            json={"brand_name": "TestBrand", "asset_paths": ["/tmp/a.jpg"]},
+        )
+        assert resp.status_code == 200
+        assert resp.json()["brand_name"] == "TestBrand"
+        assert resp.json()["asset_count"] == 1
+
+    def test_get_profile(self, client):
+        resp = client.get("/api/v1/brand/profile/bp-1")
+        assert resp.status_code == 200
+        assert resp.json()["profile_id"] == "bp-1"
+
+    def test_update_brand(self, client):
+        resp = client.post(
+            "/api/v1/brand/update/bp-1",
+            json={"brand_name": "TestBrand", "asset_paths": ["/tmp/new.jpg"]},
+        )
+        assert resp.status_code == 200
+        assert resp.json()["new_asset_count"] == 1

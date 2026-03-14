@@ -2,6 +2,8 @@
 
 __version__ = "0.1.0"
 
+from omni_proof.brand_extraction.extractor import BrandExtractor
+from omni_proof.brand_extraction.models import BrandProfile
 from omni_proof.causal.base import Estimator
 from omni_proof.causal.estimator import DMLEstimator
 from omni_proof.config.settings import Settings
@@ -12,6 +14,8 @@ from omni_proof.orchestration.insight_synthesizer import InsightSynthesizer
 from omni_proof.storage.vector_store import PineconeVectorStore, VectorStore
 
 __all__ = [
+    "BrandExtractor",
+    "BrandProfile",
     "ComplianceChain",
     "DMLEstimator",
     "EmbeddingProvider",

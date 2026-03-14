@@ -32,17 +32,24 @@ class GeminiClient(EmbeddingProvider):
         return genai.Client(api_key=self._api_key)
 
     async def generate_embedding(
-        self, content: str | Path, dimensions: int = DEFAULT_EMBEDDING_DIMS
+        self,
+        content: str | Path,
+        dimensions: int = DEFAULT_EMBEDDING_DIMS,
+        task_type: str | None = None,
     ) -> list[float]:
         if dimensions not in MATRYOSHKA_DIMS:
             raise ValueError(f"dimensions must be one of {MATRYOSHKA_DIMS}, got {dimensions}")
+
+        config = {"output_dimensionality": dimensions}
+        if task_type:
+            config["task_type"] = task_type
 
         for attempt in range(self._max_retries):
             try:
                 response = await self._client.aio.models.embed_content(
                     model=GEMINI_EMBEDDING_MODEL,
                     contents=str(content),
-                    config={"output_dimensionality": dimensions},
+                    config=config,
                 )
                 return response.embeddings[0].values
             except Exception as e:
