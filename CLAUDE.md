@@ -5,7 +5,7 @@ Causal-Multimodal Engine for Creative Performance Attribution using Gemini Embed
 
 ## Tech Stack
 - Python 3.11+, src-layout, pyproject.toml (hatchling)
-- Gemini Embedding 2 (gemini-embedding-2-preview) + Gemini 2.0 Flash
+- Gemini Embedding 2 (gemini-embedding-2-preview) + Gemini 3.1 Flash Lite
 - Pinecone serverless (vector DB)
 - SQLAlchemy 2.0 async + Alembic (relational DB)
 - DoWhy + EconML (causal inference)
@@ -55,6 +55,23 @@ Causal analysis layer needs no API keys — works with local data only.
 - Gemini `generate_embedding` config dict must be typed `dict[str, Any]` because it mixes `int` and `str` values
 - DAG template values from dicts are `Sequence[str]` — cast with `str()` / `list()` before passing to typed methods
 - `generate_embedding` retry loop needs an explicit `raise` after the loop for mypy return-type satisfaction
+
+## Releasing to PyPI
+Tags must be on the `main` branch — the release workflow rejects tags on other branches.
+```bash
+# 1. Update version in pyproject.toml
+# 2. Update CHANGELOG.md (change "Unreleased" to date)
+# 3. Commit, push to main
+git tag v0.1.0
+git push origin v0.1.0
+```
+This triggers `.github/workflows/release.yml` which:
+1. Verifies the tag is on `main`
+2. Builds wheel + sdist
+3. Publishes to PyPI (trusted publisher — no token needed)
+4. Creates a GitHub Release with auto-generated notes
+
+**Prerequisites:** Configure [PyPI trusted publishing](https://docs.pypi.org/trusted-publishers/adding-a-publisher/) with owner `navidgh66`, repo `omni_proof`, workflow `release.yml`, environment `pypi`. Also create a `pypi` environment in GitHub repo settings.
 
 ## Gemini Embedding 2 Limits
 - Video: 80s (with audio) / 120s (without)

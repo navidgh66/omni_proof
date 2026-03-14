@@ -100,7 +100,7 @@ curl localhost:8000/health  # {"status": "ok"}
           v
   +---------------------------+
   |  Gemini Embedding 2       |  3072-dim multimodal embeddings
-  |  Gemini 2.0 Flash         |  Structured feature extraction
+  |  Gemini 3.1 Flash Lite         |  Structured feature extraction
   +------------+--------------+
                |
         +------+------+
@@ -282,7 +282,7 @@ All modalities map to the same 3072-dimensional semantic space via [Gemini Embed
 | Component | Technology |
 |:----------|:-----------|
 | Embeddings | Gemini Embedding 2 |
-| Structured extraction | Gemini 2.0 Flash |
+| Structured extraction | Gemini 3.1 Flash Lite |
 | Vector DB | Pinecone Serverless |
 | Relational DB | PostgreSQL / SQLite |
 | Causal inference | DoWhy + EconML |

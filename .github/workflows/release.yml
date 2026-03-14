@@ -11,8 +11,17 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Only release from main branch
+    if: github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/v') && github.event.base_ref == 'refs/heads/main' || github.sha == github.event.repository.default_branch
     steps:
       - uses: actions/checkout@v4
+      - name: Verify tag is on main
+        run: |
+          git fetch origin main
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "ERROR: Tag is not on the main branch. Aborting release."
+            exit 1
+          fi
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"

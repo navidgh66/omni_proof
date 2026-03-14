@@ -1,7 +1,7 @@
 """Project-wide constants."""
 
 GEMINI_EMBEDDING_MODEL = "gemini-embedding-2-preview"
-GEMINI_VISION_MODEL = "gemini-2.0-flash"
+GEMINI_VISION_MODEL = "gemini-3.1-flash-lite-preview"
 DEFAULT_EMBEDDING_DIMS = 3072
 MATRYOSHKA_DIMS = [128, 768, 1536, 3072]
 MAX_VIDEO_SECONDS_WITH_AUDIO = 80
