@@ -8,18 +8,25 @@ from omni_proof.orchestration.models import DesignBrief
 logger = structlog.get_logger()
 
 
-def _classify_effect(effect: float, p_value: float) -> str:
-    if p_value > 0.05:
-        return "NEUTRAL"
-    if effect > 0.05:
-        return "RECOMMENDED"
-    if effect > 0:
-        return "CONSIDER"
-    return "AVOID"
-
-
 class InsightSynthesizer:
     """Translates CATE results into actionable design briefs."""
+
+    def __init__(
+        self,
+        p_value_threshold: float = 0.05,
+        recommend_threshold: float = 0.05,
+    ):
+        self._p_value_threshold = p_value_threshold
+        self._recommend_threshold = recommend_threshold
+
+    def _classify_effect(self, effect: float, p_value: float) -> str:
+        if p_value > self._p_value_threshold:
+            return "NEUTRAL"
+        if effect > self._recommend_threshold:
+            return "RECOMMENDED"
+        if effect > 0:
+            return "CONSIDER"
+        return "AVOID"
 
     def synthesize(self, cate_result: CATEResult) -> DesignBrief:
         segments = cate_result.segments
@@ -28,10 +35,10 @@ class InsightSynthesizer:
         best_effect = float("-inf")
 
         for seg_name, estimate in segments.items():
-            classification = _classify_effect(estimate.effect, estimate.p_value)
+            classification = self._classify_effect(estimate.effect, estimate.p_value)
             pct = f"{estimate.effect * 100:+.1f}%"
             breakdown[seg_name] = f"{pct} — {classification}"
-            if estimate.effect > best_effect and estimate.p_value <= 0.05:
+            if estimate.effect > best_effect and estimate.p_value <= self._p_value_threshold:
                 best_effect = estimate.effect
                 best_segment = seg_name
 
