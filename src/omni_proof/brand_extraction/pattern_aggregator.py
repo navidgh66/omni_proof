@@ -179,7 +179,9 @@ class PatternAggregator:
                 cosine_sim = np.dot(embedding_vec, centroid) / (embedding_norm * norm)
                 if cosine_sim < 0.7:
                     logger.warning(
-                        f"Asset {extraction.asset_path} is an outlier (cosine similarity: {cosine_sim:.3f})"
+                        "Outlier: %s (similarity: %.3f)",
+                        extraction.asset_path,
+                        cosine_sim,
                     )
 
         # Confidence scores

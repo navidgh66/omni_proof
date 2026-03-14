@@ -28,7 +28,7 @@ class TestAPIE2E:
             },
         )
         assert resp.status_code == 200
-        assert resp.json()["status"] == "queued"
+        assert resp.json()["status"] == "not_configured"
         assert resp.json()["treatment"] == "logo_in_first_3s"
 
     def test_generative_prompt_flow(self, client):

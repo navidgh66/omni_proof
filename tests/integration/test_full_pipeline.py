@@ -75,7 +75,7 @@ class TestFullCausalPipeline:
         ] + ["budget"]
         refuter = CausalRefuter(cv=2)
 
-        placebo = refuter.placebo_test(encoded, "logo_in_first_3s", "ctr", confounders)
+        refuter.placebo_test(encoded, "logo_in_first_3s", "ctr", confounders)
         subset = refuter.subset_test(encoded, "logo_in_first_3s", "ctr", confounders)
         random_conf = refuter.random_confounder_test(
             encoded, "logo_in_first_3s", "ctr", confounders

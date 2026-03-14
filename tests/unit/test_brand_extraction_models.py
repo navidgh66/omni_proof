@@ -2,8 +2,6 @@
 
 from datetime import datetime, timezone
 
-import pytest
-
 from omni_proof.brand_extraction.models import (
     AssetExtraction,
     BrandAssetMetadata,

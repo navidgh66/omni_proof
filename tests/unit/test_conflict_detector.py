@@ -2,12 +2,9 @@
 
 from datetime import datetime, timezone
 
-import pytest
-
 from omni_proof.brand_extraction.conflict_detector import ConflictDetector
 from omni_proof.brand_extraction.models import (
     BrandProfile,
-    BrandRule,
     BrandVisualStyle,
     BrandVoice,
 )

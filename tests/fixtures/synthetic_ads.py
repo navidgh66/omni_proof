@@ -65,7 +65,7 @@ SAMPLE_BRAND_GUIDE = {
     "rules": [
         {
             "section": "color_palette",
-            "description": "Primary palette: #FF6B35 (accent), #004E89 (base), #FFFFFF (background)",
+            "description": "Primary: #FF6B35 (accent), #004E89 (base), #FFFFFF (bg)",
         },
         {
             "section": "typography",
