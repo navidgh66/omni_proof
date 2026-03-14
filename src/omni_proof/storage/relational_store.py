@@ -1,8 +1,7 @@
 """Async SQLAlchemy relational store for structured performance data."""
 
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from omni_proof.storage.models import Base, CreativeMetadataRecord, PerformanceRecord
 
@@ -10,7 +9,7 @@ from omni_proof.storage.models import Base, CreativeMetadataRecord, PerformanceR
 class RelationalStore:
     def __init__(self, database_url: str):
         self._engine = create_async_engine(database_url)
-        self._session_factory = sessionmaker(
+        self._session_factory = async_sessionmaker(
             self._engine, class_=AsyncSession, expire_on_commit=False
         )
 

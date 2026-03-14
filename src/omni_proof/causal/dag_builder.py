@@ -66,7 +66,7 @@ class CausalDAGBuilder:
         t = TEMPLATES[template_name]
         return self.build_dag(
             data=data,
-            treatment=t["treatment"],
-            outcome=t["outcome"],
-            confounders=t["confounders"],
+            treatment=str(t["treatment"]),
+            outcome=str(t["outcome"]),
+            confounders=list(t["confounders"]),
         )

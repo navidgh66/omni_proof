@@ -40,7 +40,7 @@ class GeminiClient(EmbeddingProvider):
         if dimensions not in MATRYOSHKA_DIMS:
             raise ValueError(f"dimensions must be one of {MATRYOSHKA_DIMS}, got {dimensions}")
 
-        config = {"output_dimensionality": dimensions}
+        config: dict[str, Any] = {"output_dimensionality": dimensions}
         if task_type:
             config["task_type"] = task_type
 
@@ -60,6 +60,7 @@ class GeminiClient(EmbeddingProvider):
                         f"Embedding failed after {self._max_retries} retries"
                     ) from e
                 await asyncio.sleep(wait)
+        raise EmbeddingError(f"Embedding failed after {self._max_retries} retries")
 
     async def extract_metadata(self, asset_path: Path, schema: type) -> Any:
         for attempt in range(self._max_retries):

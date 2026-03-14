@@ -38,7 +38,7 @@ class PatternAggregator:
             raise ValueError("Cannot aggregate empty extractions list")
 
         # Aggregate colors
-        color_counter = Counter()
+        color_counter: Counter[str] = Counter()
         for extraction in extractions:
             color_counter.update(extraction.structured_metadata.colors.hex_codes)
 
@@ -57,8 +57,8 @@ class PatternAggregator:
         color_confidence = assets_with_top_colors / len(extractions) if top_3_colors else 0.0
 
         # Aggregate typography
-        font_style_counter = Counter()
-        font_name_counter = Counter()
+        font_style_counter: Counter[str] = Counter()
+        font_name_counter: Counter[str] = Counter()
         for extraction in extractions:
             font_style_counter.update(extraction.structured_metadata.typography.font_styles)
             font_name_counter.update(extraction.structured_metadata.typography.font_names)
