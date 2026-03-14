@@ -1,15 +1,16 @@
-<h1 align="center">OmniProof</h1>
-
 <p align="center">
-  <strong>From correlation to causation. Upload creatives, discover <em>why</em> they perform.</strong>
+  <img src="assets/logo.png" width="320" alt="OmniProof" />
 </p>
 
 <p align="center">
-  <a href="https://github.com/navidgh66/omni_proof/actions/workflows/ci.yml"><img src="https://github.com/navidgh66/omni_proof/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://pypi.org/project/omni-proof/"><img src="https://img.shields.io/pypi/v/omni-proof.svg" alt="PyPI version"></a>
-  <a href="https://pypi.org/project/omni-proof/"><img src="https://img.shields.io/pypi/pyversions/omni-proof.svg" alt="Python versions"></a>
-  <a href="https://github.com/navidgh66/omni_proof/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
-  <a href="https://github.com/navidgh66/omni_proof/blob/main/CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-Keep%20a%20Changelog-orange.svg" alt="Changelog"></a>
+  <strong>From correlation to causation.<br>Upload creatives, discover <em>why</em> they perform.</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/navidgh66/omni_proof/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/navidgh66/omni_proof/ci.yml?branch=main&style=for-the-badge&label=CI" alt="CI"></a>
+  <a href="https://pypi.org/project/omni-proof/"><img src="https://img.shields.io/pypi/v/omni-proof?style=for-the-badge&color=blue" alt="PyPI"></a>
+  <a href="https://pypi.org/project/omni-proof/"><img src="https://img.shields.io/pypi/pyversions/omni-proof?style=for-the-badge" alt="Python"></a>
+  <a href="https://github.com/navidgh66/omni_proof/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="MIT License"></a>
 </p>
 
 <p align="center">
@@ -17,24 +18,25 @@
   <a href="#quick-start">Quick Start</a> &middot;
   <a href="#how-it-works">How It Works</a> &middot;
   <a href="#features">Features</a> &middot;
-  <a href="#api-reference">API Reference</a> &middot;
+  <a href="#api-reference">API</a> &middot;
   <a href="#contributing">Contributing</a>
 </p>
 
 ---
 
-OmniProof is an open-source Python library that answers **why** creative assets perform differently. It replaces gut-feel marketing analytics with rigorous causal inference -- moving from *"ads with blue backgrounds got more clicks"* to *"blue backgrounds cause a +12% CTR uplift for the 18-24 segment, controlling for platform, budget, and seasonality."*
+**OmniProof** is an open-source Python engine that answers **why** creative assets perform differently. It replaces gut-feel marketing analytics with rigorous causal inference -- moving from *"ads with blue backgrounds got more clicks"* to *"blue backgrounds **cause** a +12% CTR uplift for the 18-24 segment, controlling for platform, budget, and seasonality."*
 
-The engine combines **Gemini Embedding 2** for native multimodal understanding, **Double Machine Learning** for causal estimation, and **RAG-based brand compliance** into a single pipeline.
+It combines **Gemini Embedding 2** for native multimodal understanding, **Double Machine Learning** for causal estimation, and **RAG-based brand compliance** into a single, modular pipeline.
 
-## Features
+## Highlights
 
-- **Causal, not correlational** -- DML + refutation tests isolate true treatment effects from confounders
-- **Natively multimodal** -- Gemini Embedding 2 places video, images, audio, PDFs, and text into a shared 3072-dim space
-- **Brand intelligence** -- Extract structured brand guidelines from any asset, then auto-check new creatives for compliance
-- **Visual causality** -- DICE-DML disentangles visual confounders from treatment signals using counterfactual embeddings
-- **Actionable output** -- Causal insights feed directly into optimized creative generation prompts
-- **Modular by design** -- Use the full pipeline or any layer independently as a library
+- **[Causal Engine](https://github.com/navidgh66/omni_proof#causal-methodology)** -- DML + refutation tests isolate true treatment effects from confounders. Not correlations.
+- **[Multimodal Embeddings](https://github.com/navidgh66/omni_proof#gemini-embedding-2)** -- Gemini Embedding 2 maps video, images, audio, PDFs, and text into a shared 3072-dim space.
+- **[Brand Intelligence](https://github.com/navidgh66/omni_proof#advanced-usage)** -- Extract structured brand guidelines from any asset, then auto-check new creatives for compliance.
+- **[DICE-DML](https://github.com/navidgh66/omni_proof#causal-methodology)** -- Disentangle visual confounders from treatment signals using counterfactual embedding pairs.
+- **[Creative Generation](https://github.com/navidgh66/omni_proof#advanced-usage)** -- Causal insights feed directly into optimized creative prompts.
+- **[REST API](https://github.com/navidgh66/omni_proof#api-reference)** -- 12 endpoints covering brand extraction, compliance, causal analysis, and generation.
+- **[Modular](https://github.com/navidgh66/omni_proof#architecture)** -- Use the full pipeline or any layer independently as a library.
 
 ## Installation
 
@@ -296,6 +298,10 @@ pytest tests/integration/ -v        # 17 integration tests
 pytest tests/ -v                    # All 157 tests
 ruff check src/ tests/              # Lint
 ```
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=navidgh66/omni_proof&type=Date)](https://star-history.com/#navidgh66/omni_proof&Date)
 
 ## Contributing
 
