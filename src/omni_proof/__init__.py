@@ -1,6 +1,8 @@
 """OmniProof: Causal-Multimodal Engine for Creative Performance Attribution."""
 
-__version__ = "0.1.0"
+from importlib.metadata import version
+
+__version__ = version("omni-proof")
 
 from omni_proof.brand_extraction.extractor import BrandExtractor
 from omni_proof.brand_extraction.models import BrandProfile

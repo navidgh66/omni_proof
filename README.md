@@ -1,319 +1,208 @@
+<h1 align="center">OmniProof</h1>
+
 <p align="center">
-  <h1 align="center">OmniProof</h1>
-  <p align="center">
-    <strong>Causal-Multimodal Engine for Creative Performance Attribution</strong>
-  </p>
-  <p align="center">
-    <a href="#installation">Installation</a> &middot;
-    <a href="#quick-start">Quick Start</a> &middot;
-    <a href="#how-it-works">How It Works</a> &middot;
-    <a href="#usage-modes">Usage Modes</a> &middot;
-    <a href="#api-reference">API Reference</a> &middot;
-    <a href="#contributing">Contributing</a>
-  </p>
+  <strong>From correlation to causation. Upload creatives, discover <em>why</em> they perform.</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/navidgh66/omni_proof/actions/workflows/ci.yml"><img src="https://github.com/navidgh66/omni_proof/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://pypi.org/project/omni-proof/"><img src="https://img.shields.io/pypi/v/omni-proof.svg" alt="PyPI version"></a>
+  <a href="https://pypi.org/project/omni-proof/"><img src="https://img.shields.io/pypi/pyversions/omni-proof.svg" alt="Python versions"></a>
+  <a href="https://github.com/navidgh66/omni_proof/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="https://github.com/navidgh66/omni_proof/blob/main/CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-Keep%20a%20Changelog-orange.svg" alt="Changelog"></a>
+</p>
+
+<p align="center">
+  <a href="#installation">Installation</a> &middot;
+  <a href="#quick-start">Quick Start</a> &middot;
+  <a href="#how-it-works">How It Works</a> &middot;
+  <a href="#features">Features</a> &middot;
+  <a href="#api-reference">API Reference</a> &middot;
+  <a href="#contributing">Contributing</a>
 </p>
 
 ---
 
-OmniProof is an open-source pipeline that turns creative assets into actionable causal insights. Upload videos, images, PDFs, or audio -- OmniProof embeds them with **Google Gemini Embedding 2**, extracts structured features with **Gemini 2.0 Flash**, estimates true causal effects on performance with **Double Machine Learning**, checks brand compliance via **multimodal RAG**, and generates optimized creative briefs grounded in proven causal findings.
+OmniProof is an open-source Python library that answers **why** creative assets perform differently. It replaces gut-feel marketing analytics with rigorous causal inference -- moving from *"ads with blue backgrounds got more clicks"* to *"blue backgrounds cause a +12% CTR uplift for the 18-24 segment, controlling for platform, budget, and seasonality."*
 
-It answers **why** creative assets perform differently -- moving marketing analytics from correlation ("ads with blue backgrounds got more clicks") to causation ("blue backgrounds *cause* a +12% CTR uplift for the 18-24 segment, controlling for platform, budget, and seasonality").
-
-## How It Works
-
-```
-Upload Creatives (video, image, PDF, audio)
-        │
-        ▼
-┌──────────────────────────┐
-│  Gemini Embedding 2      │  Multimodal embeddings (3072-dim)
-│  + Gemini 2.0 Flash      │  Structured feature extraction
-└──────────┬───────────────┘
-           │
-     ┌─────┴─────┐
-     ▼           ▼
- Pinecone    SQL DB
- (vectors)   (metadata + outcomes)
-     │           │
-     └─────┬─────┘
-           ▼
-┌──────────────────────────┐
-│  Causal Analysis          │  DAG → Identify → DML Estimate → Refute
-│  (DoWhy + EconML)         │  DICE-DML for visual embeddings
-└──────────┬───────────────┘
-           │
-     ┌─────┴──────────┐
-     ▼                ▼
- Brand Compliance   Creative Generation
- (RAG retrieval)    (causal-informed prompts)
-```
+The engine combines **Gemini Embedding 2** for native multimodal understanding, **Double Machine Learning** for causal estimation, and **RAG-based brand compliance** into a single pipeline.
 
 ## Features
 
-- **End-to-End Pipeline** -- Upload creatives, extract features, estimate causal effects, check compliance, and generate optimized briefs in one flow
-- **Causal Performance Attribution** -- Estimate true causal effects of creative features (pacing, colors, CTA type) on outcomes (CTR, conversions) using DML, not correlations
-- **Multimodal Brand Extraction** -- Upload brand assets (PDFs, images, videos, audio) and automatically extract structured brand guidelines, visual identity, and voice profile
-- **Brand Compliance Checking** -- Verify new creatives against extracted or existing brand guidelines via multimodal RAG
-- **Creative Generation** -- Generate optimized creative prompts parameterized by proven causal insights and brand rules
-- **DICE-DML Visual Causality** -- Disentangle visual confounders from treatment signals using counterfactual embedding pairs
-- **Modular Architecture** -- Use the full pipeline or any layer independently
+- **Causal, not correlational** -- DML + refutation tests isolate true treatment effects from confounders
+- **Natively multimodal** -- Gemini Embedding 2 places video, images, audio, PDFs, and text into a shared 3072-dim space
+- **Brand intelligence** -- Extract structured brand guidelines from any asset, then auto-check new creatives for compliance
+- **Visual causality** -- DICE-DML disentangles visual confounders from treatment signals using counterfactual embeddings
+- **Actionable output** -- Causal insights feed directly into optimized creative generation prompts
+- **Modular by design** -- Use the full pipeline or any layer independently as a library
 
 ## Installation
 
-### From source
+```bash
+pip install omni-proof
+```
+
+Or install from source:
 
 ```bash
 git clone https://github.com/navidgh66/omni_proof.git
 cd omni_proof
-python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 ```
 
-### Requirements
-
-- Python 3.11+
-- A [Google AI Studio](https://aistudio.google.com/apikey) API key (for Gemini Embedding 2 + Flash)
-- A [Pinecone](https://app.pinecone.io/) account (for vector storage)
-- PostgreSQL (production) or SQLite (development, default)
-
-## Configuration
-
-OmniProof uses environment variables with the `OMNI_PROOF_` prefix. Create a `.env` file in the project root:
-
-```bash
-# Required for embedding and metadata extraction
-OMNI_PROOF_GEMINI_API_KEY=AIza...
-
-# Required for vector storage
-OMNI_PROOF_PINECONE_API_KEY=pcsk_...
-OMNI_PROOF_PINECONE_INDEX_HOST=https://my-index-abc123.svc.pinecone.io
-
-# Optional (defaults shown)
-OMNI_PROOF_DATABASE_URL=sqlite+aiosqlite:///./omni_proof.db
-OMNI_PROOF_EMBEDDING_DIMENSIONS=3072
-OMNI_PROOF_LOG_LEVEL=INFO
-OMNI_PROOF_CORS_ALLOWED_ORIGINS=["*"]
-```
-
-### API Keys
-
-| Variable | Required For | Where to Get |
-|:---------|:-------------|:-------------|
-| `OMNI_PROOF_GEMINI_API_KEY` | Embeddings + metadata extraction | [Google AI Studio](https://aistudio.google.com/apikey) |
-| `OMNI_PROOF_PINECONE_API_KEY` | Vector storage and retrieval | [Pinecone Console](https://app.pinecone.io/) |
-| `OMNI_PROOF_PINECONE_INDEX_HOST` | Vector storage and retrieval | Pinecone Console (index details page) |
-| `OMNI_PROOF_DATABASE_URL` | Relational storage | Your PostgreSQL or SQLite connection string |
-
-### Programmatic configuration
-
-When using OmniProof as a library, you can pass settings directly:
-
-```python
-from omni_proof import Settings, GeminiClient
-
-settings = Settings(
-    gemini_api_key="AIza...",
-    pinecone_api_key="pcsk_...",
-    pinecone_index_host="https://my-index-abc123.svc.pinecone.io",
-)
-client = GeminiClient(api_key=settings.gemini_api_key)
-```
+> Requires Python 3.11+. For the full pipeline you'll need a [Gemini API key](https://aistudio.google.com/apikey) and a [Pinecone](https://app.pinecone.io/) account. The causal analysis layer works with local data only -- no API keys needed.
 
 ## Quick Start
 
-### Full pipeline via API
-
-```bash
-# Start the server
-uvicorn omni_proof.api.app:create_app --factory --reload
-
-# Health check
-curl localhost:8000/health
-# {"status": "ok"}
-
-# 1. Extract brand profile from assets
-curl -X POST localhost:8000/api/v1/brand/extract \
-  -F "brand_name=AcmeCorp" \
-  -F "files=@brand_guide.pdf" \
-  -F "files=@logo.png"
-
-# 2. Upload creatives for analysis
-curl -X POST localhost:8000/api/v1/causal/analyze \
-  -H "Content-Type: application/json" \
-  -d '{"treatment": "fast_pacing", "outcome": "ctr", "confounders": ["platform", "budget"]}'
-
-# 3. Check compliance
-curl -X POST localhost:8000/api/v1/compliance/check \
-  -F "creative_id=new_ad_001" \
-  -F "file=@new_ad.jpg"
-
-# 4. Generate optimized creative brief
-curl -X POST localhost:8000/api/v1/generative/prompt \
-  -H "Content-Type: application/json" \
-  -d '{"target_segment": "18-24", "objective": "conversion"}'
-```
-
-### Full pipeline via Python
-
 ```python
+import pandas as pd
 from pathlib import Path
-from omni_proof import BrandExtractor, GeminiClient, Settings, ComplianceChain, DMLEstimator
+from omni_proof import BrandExtractor, ComplianceChain, DMLEstimator, GeminiClient, Settings
 from omni_proof.storage.memory_store import InMemoryVectorStore
 from omni_proof.rag.brand_retriever import BrandRetriever
 
-settings = Settings(gemini_api_key="AIza...", pinecone_api_key="pcsk_...", pinecone_index_host="https://...")
+settings = Settings(gemini_api_key="AIza...", pinecone_api_key="pcsk_...",
+                    pinecone_index_host="https://my-index.svc.pinecone.io")
 client = GeminiClient(api_key=settings.gemini_api_key)
 store = InMemoryVectorStore()
 
-# 1. Extract brand identity
+# 1. Extract brand identity from assets
 extractor = BrandExtractor(embedding_provider=client, gemini_client=client, vector_store=store)
 profile = await extractor.extract("AcmeCorp", [Path("brand_guide.pdf"), Path("logo.png")])
 
-# 2. Check compliance
+# 2. Check a new creative for brand compliance
 retriever = BrandRetriever(gemini_client=client, vector_store=store)
 chain = ComplianceChain(gemini_client=client, brand_retriever=retriever)
-report = await chain.check_compliance("new_ad_001", Path("new_ad.jpg"))
+report = await chain.check_compliance("ad_001", Path("new_ad.jpg"))
+print(f"Compliant: {report.passed} (score: {report.score})")
 
-# 3. Causal analysis (works with local data, no API keys needed)
-estimator = DMLEstimator(cv=5, n_estimators=50)
-ate = estimator.estimate_ate(data, "fast_pacing", "ctr", ["platform", "audience_segment", "budget"])
-```
-
-### Using Docker
-
-```bash
-docker-compose up -d    # Starts API + PostgreSQL
-curl localhost:8000/health
-```
-
-## Usage Modes
-
-OmniProof is modular -- use the full pipeline or any layer independently:
-
-| Mode | What It Does | API Keys Needed |
-|:-----|:-------------|:----------------|
-| **Full Pipeline** | All of the below combined | Gemini + Pinecone |
-| **Brand Extraction** | Extract brand guidelines from uploaded assets | Gemini |
-| **Brand Compliance** | Check creatives against brand guidelines | Gemini + Pinecone |
-| **Causal Analysis** | Estimate causal effects of creative features on outcomes | None (bring your own data) |
-| **Creative Generation** | Generate optimized creative prompts | None (uses stored results) |
-
-### Brand Extraction
-
-Extract structured brand guidelines from a collection of assets:
-
-```python
-from pathlib import Path
-from omni_proof import BrandExtractor, GeminiClient, Settings
-from omni_proof.storage.memory_store import InMemoryVectorStore
-
-settings = Settings(gemini_api_key="AIza...")
-client = GeminiClient(api_key=settings.gemini_api_key)
-store = InMemoryVectorStore()
-
-extractor = BrandExtractor(
-    embedding_provider=client,
-    gemini_client=client,
-    vector_store=store,
-)
-
-# Extract brand profile from assets
-profile = await extractor.extract("AcmeCorp", [
-    Path("brand_guide.pdf"),
-    Path("approved_ad_1.jpg"),
-    Path("approved_ad_2.mp4"),
-    Path("brand_jingle.mp3"),
-])
-
-print(f"Brand: {profile.brand_name}")
-print(f"Voice: {profile.voice.formality}, {profile.voice.emotional_register}")
-print(f"Colors: {profile.visual_style.dominant_colors}")
-print(f"Rules extracted: {len(profile.rules)}")
-
-# Update with new assets (detects conflicts)
-updated, conflicts = await extractor.update(profile, [Path("new_campaign.jpg")])
-for conflict in conflicts:
-    print(f"  CONFLICT [{conflict.severity}] {conflict.dimension}: {conflict.existing_value} -> {conflict.new_value}")
-```
-
-### Brand Compliance
-
-Check creatives against brand guidelines:
-
-```python
-from omni_proof import ComplianceChain
-from omni_proof.rag.brand_retriever import BrandRetriever
-
-retriever = BrandRetriever(gemini_client=client, vector_store=store)
-chain = ComplianceChain(gemini_client=client, brand_retriever=retriever)
-
-report = await chain.check_compliance("new_ad_001", Path("new_ad.jpg"))
-print(f"Passed: {report.passed}, Score: {report.score}")
-for violation in report.violations:
-    print(f"  [{violation.severity}] {violation.description}")
-```
-
-### Causal Analysis (standalone, no API keys)
-
-Estimate the true causal effect of creative features on performance using your own data:
-
-```python
-import pandas as pd
-from omni_proof import DMLEstimator
-
+# 3. Estimate causal effect of a creative feature (no API keys needed)
 data = pd.read_csv("campaign_data.csv")
 estimator = DMLEstimator(cv=5, n_estimators=50)
-
-# Average Treatment Effect
-ate = estimator.estimate_ate(
-    data,
-    treatment_col="fast_pacing",
-    outcome_col="ctr",
-    confounder_cols=["platform", "audience_segment", "budget"],
-)
-print(f"ATE: {ate.ate:+.3f} (CI: {ate.ci_lower:.3f} to {ate.ci_upper:.3f}, p={ate.p_value:.4f})")
-
-# Conditional ATE by segment
-cate = estimator.estimate_cate(
-    data,
-    treatment_col="fast_pacing",
-    outcome_col="ctr",
-    confounder_cols=["platform", "budget"],
-    segment_col="audience_segment",
-)
-for segment, effect in cate.segments.items():
-    print(f"  {segment}: {effect.effect:+.3f} (CI: {effect.ci_lower:.3f} to {effect.ci_upper:.3f})")
+ate = estimator.estimate_ate(data, "fast_pacing", "ctr", ["platform", "audience_segment", "budget"])
+print(f"ATE: {ate.ate:+.3f} (p={ate.p_value:.4f})")
 ```
 
-**Full causal pipeline with DAG construction and refutation:**
+Or start the API server:
+
+```bash
+uvicorn omni_proof.api.app:create_app --factory --reload
+curl localhost:8000/health  # {"status": "ok"}
+```
+
+## How It Works
+
+```
+  Upload creatives (video, image, PDF, audio)
+          |
+          v
+  +---------------------------+
+  |  Gemini Embedding 2       |  3072-dim multimodal embeddings
+  |  Gemini 2.0 Flash         |  Structured feature extraction
+  +------------+--------------+
+               |
+        +------+------+
+        v             v
+    Pinecone       SQL DB
+    (vectors)      (metadata + outcomes)
+        |             |
+        +------+------+
+               v
+  +---------------------------+
+  |  Causal Engine             |  DAG -> Identify -> DML -> Refute
+  |  (DoWhy + EconML)          |  DICE-DML for visual embeddings
+  +------------+--------------+
+               |
+        +------+-----------+
+        v                  v
+  Brand Compliance     Creative Generation
+  (RAG retrieval)      (causal-informed prompts)
+```
+
+## Configuration
+
+Set environment variables with the `OMNI_PROOF_` prefix, or pass them programmatically:
+
+```bash
+OMNI_PROOF_GEMINI_API_KEY=AIza...
+OMNI_PROOF_PINECONE_API_KEY=pcsk_...
+OMNI_PROOF_PINECONE_INDEX_HOST=https://my-index-abc123.svc.pinecone.io
+OMNI_PROOF_DATABASE_URL=sqlite+aiosqlite:///./omni_proof.db  # default
+```
+
+| Variable | Required For | Where to Get |
+|:---------|:-------------|:-------------|
+| `OMNI_PROOF_GEMINI_API_KEY` | Embeddings + extraction | [Google AI Studio](https://aistudio.google.com/apikey) |
+| `OMNI_PROOF_PINECONE_API_KEY` | Vector storage | [Pinecone Console](https://app.pinecone.io/) |
+| `OMNI_PROOF_PINECONE_INDEX_HOST` | Vector storage | Pinecone Console |
+| `OMNI_PROOF_DATABASE_URL` | Relational storage | PostgreSQL or SQLite URI |
+
+## Architecture
+
+OmniProof is organized into five layers. Each can be used independently:
+
+| Layer | Module | Key Classes |
+|:------|:-------|:------------|
+| **Ingestion** | `omni_proof.ingestion` | `GeminiClient`, `AssetPreprocessor`, `IngestPipeline` |
+| **Storage** | `omni_proof.storage` | `PineconeVectorStore`, `InMemoryVectorStore`, `RelationalStore` |
+| **Causal** | `omni_proof.causal` | `CausalDAGBuilder`, `DMLEstimator`, `CausalRefuter`, `VisualDMLEstimator` |
+| **Orchestration** | `omni_proof.orchestration` | `ComplianceChain`, `InsightSynthesizer`, `BrandExtractor` |
+| **API** | `omni_proof.api` | FastAPI app, routes, `GenerativePromptBuilder` |
+
+### Key Abstractions
+
+| Interface | Purpose | Implementations |
+|:----------|:--------|:----------------|
+| `EmbeddingProvider` | Generate embeddings from any content | `GeminiClient` |
+| `VectorStore` | Store and search vectors | `PineconeVectorStore`, `InMemoryVectorStore` |
+| `Estimator` | Estimate causal effects | `DMLEstimator` |
+
+## Advanced Usage
+
+<details>
+<summary><strong>Causal pipeline with DAG + refutation</strong></summary>
 
 ```python
 from omni_proof.causal.dag_builder import CausalDAGBuilder
 from omni_proof.causal.identifier import CausalIdentifier
 from omni_proof.causal.refuter import CausalRefuter
 
-# 1. Build causal DAG
 dag = CausalDAGBuilder()
 model = dag.build_dag(data, treatment="fast_pacing", outcome="ctr",
                       confounders=["platform", "audience_segment", "budget"])
 
-# 2. Identify estimand via backdoor criterion
-identifier = CausalIdentifier()
-estimand = identifier.identify_effect(model)
+estimand = CausalIdentifier().identify_effect(model)
+ate = DMLEstimator().estimate_ate(data, "fast_pacing", "ctr",
+                                  ["platform", "audience_segment", "budget"])
 
-# 3. Estimate effect
-ate = estimator.estimate_ate(data, "fast_pacing", "ctr", ["platform", "audience_segment", "budget"])
-
-# 4. Refute -- reject spurious findings
 refuter = CausalRefuter()
-placebo = refuter.placebo_test(data, "fast_pacing", "ctr", ["platform", "audience_segment", "budget"])
-subset = refuter.subset_test(data, "fast_pacing", "ctr", ["platform", "audience_segment", "budget"])
-print(f"Placebo passed: {placebo.passed}, Subset passed: {subset.passed}")
+placebo = refuter.placebo_test(data, "fast_pacing", "ctr",
+                               ["platform", "audience_segment", "budget"])
+print(f"Effect: {ate.ate:+.3f}, Placebo passed: {placebo.passed}")
 ```
+</details>
 
-### Creative Generation
+<details>
+<summary><strong>Brand extraction with conflict detection</strong></summary>
 
-Generate optimized creative prompts from causal insights:
+```python
+profile = await extractor.extract("AcmeCorp", [
+    Path("brand_guide.pdf"), Path("approved_ad.jpg"),
+    Path("brand_video.mp4"), Path("jingle.mp3"),
+])
+print(f"Colors: {profile.visual_style.dominant_colors}")
+print(f"Voice: {profile.voice.formality}, {profile.voice.emotional_register}")
+print(f"Rules: {len(profile.rules)}")
+
+# Update with new assets -- detects conflicts
+updated, conflicts = await extractor.update(profile, [Path("new_campaign.jpg")])
+for c in conflicts:
+    print(f"  CONFLICT [{c.severity}] {c.dimension}: {c.existing_value} -> {c.new_value}")
+```
+</details>
+
+<details>
+<summary><strong>Creative generation from causal insights</strong></summary>
 
 ```python
 from omni_proof.api.generative_loop import GenerativePromptBuilder
@@ -326,47 +215,24 @@ prompt = builder.build_prompt(
     objective="conversion",
     constraints=["16:9 aspect ratio", "max 15 seconds"],
 )
-print(prompt)
 ```
+</details>
 
-### Insight Synthesis
-
-Translate causal results into design briefs:
+<details>
+<summary><strong>CATE by segment + insight synthesis</strong></summary>
 
 ```python
+cate = estimator.estimate_cate(data, "fast_pacing", "ctr",
+                                confounder_cols=["platform", "budget"],
+                                segment_col="audience_segment")
+for segment, effect in cate.segments.items():
+    print(f"  {segment}: {effect.effect:+.3f} (CI: {effect.ci_lower:.3f} to {effect.ci_upper:.3f})")
+
 from omni_proof import InsightSynthesizer
-
-synthesizer = InsightSynthesizer(p_value_threshold=0.05, recommend_threshold=0.05)
-brief = synthesizer.synthesize(cate_result)
-
-print(f"Finding: {brief.finding}")
-print(f"Recommendation: {brief.recommendation}")
-print(f"Confidence: {brief.confidence}")
+brief = InsightSynthesizer(p_value_threshold=0.05).synthesize(cate)
+print(f"{brief.finding} -> {brief.recommendation}")
 ```
-
-## Architecture
-
-```
-src/omni_proof/
-  config/              Settings, constants
-  core/                EmbeddingProvider ABC, exception hierarchy
-  ingestion/           GeminiClient, AssetPreprocessor, IngestPipeline
-  storage/             PineconeVectorStore, InMemoryVectorStore, RelationalStore
-  causal/              CausalDAGBuilder, DMLEstimator, CausalRefuter
-    dice_dml/          CounterfactualGenerator, Disentangler, VisualDMLEstimator
-  brand_extraction/    BrandExtractor, PatternAggregator, ConflictDetector
-  rag/                 BrandIndexer, BrandRetriever
-  orchestration/       ComplianceChain, InsightSynthesizer
-  api/                 FastAPI app, routes, GenerativePromptBuilder
-```
-
-### Key Abstractions
-
-| Interface | Purpose | Implementations |
-|:----------|:--------|:----------------|
-| `EmbeddingProvider` | Generate embeddings from any content | `GeminiClient` (swap in OpenAI, local models, etc.) |
-| `VectorStore` | Store and search vector embeddings | `PineconeVectorStore`, `InMemoryVectorStore` |
-| `Estimator` | Estimate causal effects | `DMLEstimator` (add PropensityScore, Metalearners, etc.) |
+</details>
 
 ## API Reference
 
@@ -376,38 +242,51 @@ src/omni_proof/
 | `POST` | `/api/v1/brand/extract` | Extract brand profile from uploaded assets |
 | `POST` | `/api/v1/brand/update/{id}` | Update brand profile with new assets |
 | `GET` | `/api/v1/brand/profile/{id}` | Retrieve a brand profile |
-| `POST` | `/api/v1/compliance/check` | Upload creative for brand compliance review |
+| `POST` | `/api/v1/compliance/check` | Check creative for brand compliance |
 | `GET` | `/api/v1/compliance/reports` | Historical compliance reports |
-| `POST` | `/api/v1/causal/analyze` | Trigger new causal analysis |
-| `GET` | `/api/v1/causal/effects` | List all estimated causal effects |
+| `POST` | `/api/v1/causal/analyze` | Trigger causal analysis |
+| `GET` | `/api/v1/causal/effects` | List estimated causal effects |
 | `GET` | `/api/v1/causal/effects/{treatment}` | CATE breakdown by segment |
-| `GET` | `/api/v1/insights/briefs` | Latest design briefs from causal data |
-| `GET` | `/api/v1/insights/segments` | Effects filtered by audience segment |
+| `GET` | `/api/v1/insights/briefs` | Design briefs from causal data |
+| `GET` | `/api/v1/insights/segments` | Effects by audience segment |
 | `POST` | `/api/v1/generative/prompt` | Generate optimized creative prompt |
 
 ## Causal Methodology
 
-OmniProof uses a four-stage causal pipeline:
+OmniProof implements a four-stage causal pipeline:
 
-1. **Model** -- Construct a Directed Acyclic Graph (DAG) mapping treatments, outcomes, and confounders
+1. **Model** -- Build a DAG mapping treatments, outcomes, and confounders
 2. **Identify** -- Apply the backdoor criterion to find valid adjustment sets
-3. **Estimate** -- Double Machine Learning (Neyman Orthogonalization) via EconML to isolate true effects
-4. **Refute** -- Placebo tests, subset validation, and random confounder checks to reject spurious findings
+3. **Estimate** -- Double Machine Learning (Neyman orthogonalization) via EconML
+4. **Refute** -- Placebo tests, subset validation, and random confounder checks
 
-For visual embeddings where treatment and confounders are entangled, **DICE-DML** generates counterfactual pairs, extracts treatment fingerprints via vector subtraction, and applies orthogonal projection to disentangle the representation before estimation.
+For visual embeddings where treatment and confounders are entangled, **DICE-DML** generates counterfactual pairs, isolates treatment fingerprints via vector subtraction, and applies orthogonal projection before estimation.
 
 ## Gemini Embedding 2
 
-OmniProof leverages [Gemini Embedding 2](https://ai.google.dev/gemini-api/docs/embeddings) for native multimodal embeddings. All modalities (text, images, video, audio, PDF) map to the same 3072-dimensional semantic space.
+All modalities map to the same 3072-dimensional semantic space via [Gemini Embedding 2](https://ai.google.dev/gemini-api/docs/embeddings):
 
 | Modality | Limit |
 |:---------|:------|
 | Text | 8,192 tokens |
 | Images | 6 per request |
 | Video | 80s (with audio) / 120s (without) |
-| Audio | 80s max |
+| Audio | 80s |
 | PDF | 1 document, 6 pages |
-| Output | 3,072 dimensions (Matryoshka: truncate to 1536 / 768 / 128) |
+| Output | 3,072 dims (Matryoshka: truncate to 1536 / 768 / 128) |
+
+## Tech Stack
+
+| Component | Technology |
+|:----------|:-----------|
+| Embeddings | Gemini Embedding 2 |
+| Structured extraction | Gemini 2.0 Flash |
+| Vector DB | Pinecone Serverless |
+| Relational DB | PostgreSQL / SQLite |
+| Causal inference | DoWhy + EconML |
+| API | FastAPI |
+| ML models | LightGBM |
+| Schemas | Pydantic v2 + SQLAlchemy 2.0 |
 
 ## Testing
 
@@ -415,24 +294,8 @@ OmniProof leverages [Gemini Embedding 2](https://ai.google.dev/gemini-api/docs/e
 pytest tests/unit/ -v               # 140 unit tests
 pytest tests/integration/ -v        # 17 integration tests
 pytest tests/ -v                    # All 157 tests
-
 ruff check src/ tests/              # Lint
-ruff format src/ tests/             # Format
 ```
-
-## Tech Stack
-
-| Component | Technology |
-|:----------|:-----------|
-| Embeddings | Google Gemini Embedding 2 (`gemini-embedding-2-preview`) |
-| Structured extraction | Google Gemini 2.0 Flash |
-| Vector database | Pinecone Serverless / InMemoryVectorStore (dev) |
-| Relational database | PostgreSQL (prod) / SQLite + aiosqlite (dev) |
-| Causal inference | DoWhy + EconML (LinearDML, CausalForestDML) |
-| Visual causality | DICE-DML (orthogonal projection) |
-| API framework | FastAPI |
-| ML models | LightGBM (first-stage nuisance models) |
-| Schemas | Pydantic v2 + SQLAlchemy 2.0 async |
 
 ## Contributing
 
