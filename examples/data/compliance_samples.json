@@ -1,0 +1,119 @@
+[
+  {
+    "asset_id": "VEL-2026-Q1-0012",
+    "asset_name": "runner_sunrise_1773607608677.png",
+    "creative_name": "Runner_Sunrise",
+    "passed": true,
+    "score": 0.95,
+    "violations": [],
+    "evidence_sources": [
+      "Color analysis: Electric Blue #0066FF detected as primary (approx 60% coverage)",
+      "Typography: Sans-serif headline confirmed, consistent with Montserrat Bold",
+      "Photography: Real athlete in natural running motion on city bridge",
+      "Logo: Velocity horizontal lockup bottom-left with adequate clear space",
+      "Copy: 'Push Your Limits' is an approved CTA — aspirational, not aggressive"
+    ]
+  },
+  {
+    "asset_id": "VEL-2026-Q1-0018",
+    "asset_name": "yoga_flow_1773607650166.png",
+    "creative_name": "Yoga_Flow",
+    "passed": true,
+    "score": 0.88,
+    "violations": [
+      {
+        "rule_type": "concrete",
+        "severity": "warning",
+        "description": "Velocity Sportswear wordmark text appears small, may fall below 14px minimum at mobile scale",
+        "evidence": "Bottom-right wordmark 'Velocity Sportswear' renders at approximately 12px on mobile viewports"
+      }
+    ],
+    "evidence_sources": [
+      "Color analysis: Electric Blue #0066FF sportswear, green nature background on-brand",
+      "Photography: Real athlete in warrior pose, natural morning light, park setting",
+      "Copy: 'Where does your morning take you?' — inquisitive, on-brand tone",
+      "Typography: Sans-serif headline, but wordmark size borderline at mobile breakpoints"
+    ]
+  },
+  {
+    "asset_id": "VEL-2026-Q2-0033",
+    "asset_name": "trail_epic_1773607624401.png",
+    "creative_name": "Trail_Epic",
+    "passed": true,
+    "score": 0.82,
+    "violations": [
+      {
+        "rule_type": "concrete",
+        "severity": "warning",
+        "description": "Logo placement at bottom-left overlaps slightly with fallen leaf texture",
+        "evidence": "Velocity logo has approximately 24px clear space (guideline: 32px minimum)"
+      }
+    ],
+    "evidence_sources": [
+      "Color analysis: Electric Blue jacket, Warm Sand/brown autumn palette — on-brand secondary",
+      "Photography: Real athlete in natural running motion on forest trail, authentic setting",
+      "Copy: 'Find Your Pace. Velocity Terrain.' — approved aspirational CTA",
+      "Logo: Present but clear space slightly under 32px minimum due to leaf texture"
+    ]
+  },
+  {
+    "asset_id": "VEL-2026-Q2-0041",
+    "asset_name": "hiit_studio_1773607639436.png",
+    "creative_name": "HIIT_Studio",
+    "passed": false,
+    "score": 0.68,
+    "violations": [
+      {
+        "rule_type": "concrete",
+        "severity": "warning",
+        "description": "No Velocity logo detected in the image",
+        "evidence": "Brand guideline requires logo on all creative assets. No horizontal lockup found."
+      },
+      {
+        "rule_type": "concrete",
+        "severity": "warning",
+        "description": "Electric Blue #0066FF not present as primary brand color",
+        "evidence": "Dominant colors are Carbon Black and Volt Green. Guideline requires 60% Electric Blue usage."
+      }
+    ],
+    "evidence_sources": [
+      "Color analysis: Carbon Black dominant, Volt Green accent — missing Electric Blue primary",
+      "Typography: Display font for '6 SECONDS. FULL SEND.' — bold but not confirmed Montserrat",
+      "Photography: Real athlete with kettlebell in gym — authentic movement, on-brand",
+      "Logo: Not detected — critical omission"
+    ]
+  },
+  {
+    "asset_id": "VEL-2026-Q3-0055",
+    "asset_name": "back_to_school_offbrand.png",
+    "creative_name": "Back_to_School_Offbrand",
+    "passed": false,
+    "score": 0.35,
+    "violations": [
+      {
+        "rule_type": "concrete",
+        "severity": "critical",
+        "description": "Color #FF3333 is explicitly prohibited in brand guidelines",
+        "evidence": "Detected red #FF3333 as accent color at 18% screen coverage (prohibited palette)"
+      },
+      {
+        "rule_type": "concrete",
+        "severity": "critical",
+        "description": "Serif font detected; brand requires sans-serif only (Montserrat/Source Sans Pro)",
+        "evidence": "Georgia serif font detected in headline text at 24px"
+      },
+      {
+        "rule_type": "semantic",
+        "severity": "warning",
+        "description": "CTA 'Crush the Competition' uses aggressive language violating tone guidelines",
+        "evidence": "Guideline prohibits competitive/aggressive CTAs. 'Crush' is on the banned word list."
+      }
+    ],
+    "evidence_sources": [
+      "Color analysis: Prohibited red #FF3333 detected alongside Carbon Black",
+      "Typography: Georgia serif font in headlines (brand requires Montserrat)",
+      "Copy: Aggressive CTA 'Crush the Competition' violates inclusive tone",
+      "Note: This is a hypothetical off-brand example — no image file exists"
+    ]
+  }
+]

@@ -1,0 +1,500 @@
+[
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000001",
+    "campaign_id": "c1d2e3f4-1111-4000-8000-000000000001",
+    "creative_name": "Runner_Sunrise",
+    "file_name": "runner_sunrise_1773607608677.png",
+    "platform": "Instagram",
+    "timestamp": "2026-01-20T08:15:00Z",
+    "visual": {
+      "objects_detected": ["runner", "bridge", "city skyline", "sneakers", "sunrise"],
+      "logo_screen_ratio": 0.06,
+      "background_setting": "urban",
+      "dominant_colors": ["#0066FF", "#FF8C00", "#C0C0C0"],
+      "contrast_ratio": 7.2,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 0,
+      "time_to_first_logo": 0.0,
+      "product_exposure_seconds": 0.0,
+      "motion_intensity": 0.0,
+      "total_duration_seconds": 0.0
+    },
+    "textual": {
+      "text_density": 0.14,
+      "cta_type": "imperative",
+      "promotional_text": "Push Your Limits. Velocity Endurance.",
+      "typography_style": "sans_serif"
+    },
+    "auditory": {
+      "audio_genre": "none",
+      "voiceover_demographic": "none",
+      "emotional_tone": "inspirational",
+      "music_tempo_bpm": 0
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000002",
+    "campaign_id": "c1d2e3f4-2222-4000-8000-000000000001",
+    "creative_name": "Trail_Epic",
+    "file_name": "trail_epic_1773607624401.png",
+    "platform": "Instagram",
+    "timestamp": "2026-02-05T14:30:00Z",
+    "visual": {
+      "objects_detected": ["runner", "autumn forest", "fallen leaves", "trail path", "jacket"],
+      "logo_screen_ratio": 0.05,
+      "background_setting": "nature",
+      "dominant_colors": ["#0066FF", "#D2691E", "#E8DCC8"],
+      "contrast_ratio": 5.8,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 0,
+      "time_to_first_logo": 0.0,
+      "product_exposure_seconds": 0.0,
+      "motion_intensity": 0.0,
+      "total_duration_seconds": 0.0
+    },
+    "textual": {
+      "text_density": 0.12,
+      "cta_type": "imperative",
+      "promotional_text": "Find Your Pace. Velocity Terrain.",
+      "typography_style": "sans_serif"
+    },
+    "auditory": {
+      "audio_genre": "none",
+      "voiceover_demographic": "none",
+      "emotional_tone": "inspirational",
+      "music_tempo_bpm": 0
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000003",
+    "campaign_id": "c1d2e3f4-2222-4000-8000-000000000001",
+    "creative_name": "HIIT_Studio",
+    "file_name": "hiit_studio_1773607639436.png",
+    "platform": "Instagram",
+    "timestamp": "2026-01-28T11:00:00Z",
+    "visual": {
+      "objects_detected": ["athlete", "kettlebell", "gym floor", "dark gym"],
+      "logo_screen_ratio": 0.0,
+      "background_setting": "indoor",
+      "dominant_colors": ["#1A1A1A", "#AAFF00", "#6B7280"],
+      "contrast_ratio": 8.5,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 0,
+      "time_to_first_logo": 0.0,
+      "product_exposure_seconds": 0.0,
+      "motion_intensity": 0.0,
+      "total_duration_seconds": 0.0
+    },
+    "textual": {
+      "text_density": 0.20,
+      "cta_type": "urgency",
+      "promotional_text": "6 Seconds. Full Send. Velocity HIIT.",
+      "typography_style": "display"
+    },
+    "auditory": {
+      "audio_genre": "none",
+      "voiceover_demographic": "none",
+      "emotional_tone": "energetic",
+      "music_tempo_bpm": 0
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000004",
+    "campaign_id": "c1d2e3f4-3333-4000-8000-000000000001",
+    "creative_name": "Yoga_Flow",
+    "file_name": "yoga_flow_1773607650166.png",
+    "platform": "Instagram",
+    "timestamp": "2026-02-14T09:45:00Z",
+    "visual": {
+      "objects_detected": ["athlete", "warrior pose", "park", "trees", "morning light"],
+      "logo_screen_ratio": 0.04,
+      "background_setting": "nature",
+      "dominant_colors": ["#0066FF", "#2D5016", "#E8DCC8"],
+      "contrast_ratio": 5.9,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 0,
+      "time_to_first_logo": 0.0,
+      "product_exposure_seconds": 0.0,
+      "motion_intensity": 0.0,
+      "total_duration_seconds": 0.0
+    },
+    "textual": {
+      "text_density": 0.15,
+      "cta_type": "inquisitive",
+      "promotional_text": "Where does your morning take you? Velocity Flex.",
+      "typography_style": "sans_serif"
+    },
+    "auditory": {
+      "audio_genre": "none",
+      "voiceover_demographic": "none",
+      "emotional_tone": "calm",
+      "music_tempo_bpm": 0
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000005",
+    "campaign_id": "c1d2e3f4-3333-4000-8000-000000000001",
+    "creative_name": "Sprint_Track",
+    "file_name": "sprint_track_1773607665734.png",
+    "platform": "Meta",
+    "timestamp": "2026-03-01T16:20:00Z",
+    "visual": {
+      "objects_detected": ["sprinter", "finish line", "track", "arms raised", "stadium"],
+      "logo_screen_ratio": 0.07,
+      "background_setting": "outdoor",
+      "dominant_colors": ["#0066FF", "#FFD700", "#FFFFFF"],
+      "contrast_ratio": 7.8,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 0,
+      "time_to_first_logo": 0.0,
+      "product_exposure_seconds": 0.0,
+      "motion_intensity": 0.0,
+      "total_duration_seconds": 0.0
+    },
+    "textual": {
+      "text_density": 0.12,
+      "cta_type": "imperative",
+      "promotional_text": "Every Finish Line Is a Starting Line.",
+      "typography_style": "sans_serif"
+    },
+    "auditory": {
+      "audio_genre": "none",
+      "voiceover_demographic": "none",
+      "emotional_tone": "inspirational",
+      "music_tempo_bpm": 0
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000006",
+    "campaign_id": "c1d2e3f4-4444-4000-8000-000000000001",
+    "creative_name": "Swim_Laps",
+    "file_name": "swim_laps_1773607709346.png",
+    "platform": "Instagram",
+    "timestamp": "2026-03-05T07:30:00Z",
+    "visual": {
+      "objects_detected": ["swimmer", "underwater", "bubbles", "light rays"],
+      "logo_screen_ratio": 0.05,
+      "background_setting": "indoor",
+      "dominant_colors": ["#0066FF", "#00BFFF", "#FFFFFF"],
+      "contrast_ratio": 6.5,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 0,
+      "time_to_first_logo": 0.0,
+      "product_exposure_seconds": 0.0,
+      "motion_intensity": 0.0,
+      "total_duration_seconds": 0.0
+    },
+    "textual": {
+      "text_density": 0.10,
+      "cta_type": "passive",
+      "promotional_text": "Born for the Water. Velocity Aqua.",
+      "typography_style": "sans_serif"
+    },
+    "auditory": {
+      "audio_genre": "none",
+      "voiceover_demographic": "none",
+      "emotional_tone": "calm",
+      "music_tempo_bpm": 0
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000007",
+    "campaign_id": "c1d2e3f4-4444-4000-8000-000000000001",
+    "creative_name": "Basketball_Court",
+    "file_name": "basketball_court_1773607722643.png",
+    "platform": "Instagram",
+    "timestamp": "2026-02-20T18:00:00Z",
+    "visual": {
+      "objects_detected": ["player", "basketball", "outdoor court", "dusk sky"],
+      "logo_screen_ratio": 0.06,
+      "background_setting": "urban",
+      "dominant_colors": ["#1A1A1A", "#AAFF00", "#FF8C00"],
+      "contrast_ratio": 8.2,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 0,
+      "time_to_first_logo": 0.0,
+      "product_exposure_seconds": 0.0,
+      "motion_intensity": 0.0,
+      "total_duration_seconds": 0.0
+    },
+    "textual": {
+      "text_density": 0.14,
+      "cta_type": "imperative",
+      "promotional_text": "Own the Court. Velocity Street.",
+      "typography_style": "display"
+    },
+    "auditory": {
+      "audio_genre": "none",
+      "voiceover_demographic": "none",
+      "emotional_tone": "energetic",
+      "music_tempo_bpm": 0
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000008",
+    "campaign_id": "c1d2e3f4-1111-4000-8000-000000000001",
+    "creative_name": "Cycling_Mountain",
+    "file_name": "cycling_mountain_1773607735893.png",
+    "platform": "Instagram",
+    "timestamp": "2026-01-25T06:00:00Z",
+    "visual": {
+      "objects_detected": ["cyclist", "switchback road", "mountains", "snow peaks", "helmet"],
+      "logo_screen_ratio": 0.0,
+      "background_setting": "nature",
+      "dominant_colors": ["#0066FF", "#87CEEB", "#FFFFFF"],
+      "contrast_ratio": 7.5,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 0,
+      "time_to_first_logo": 0.0,
+      "product_exposure_seconds": 0.0,
+      "motion_intensity": 0.0,
+      "total_duration_seconds": 0.0
+    },
+    "textual": {
+      "text_density": 0.12,
+      "cta_type": "imperative",
+      "promotional_text": "Conquer the Climb. Velocity Cycling.",
+      "typography_style": "sans_serif"
+    },
+    "auditory": {
+      "audio_genre": "none",
+      "voiceover_demographic": "none",
+      "emotional_tone": "inspirational",
+      "music_tempo_bpm": 0
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000009",
+    "campaign_id": "c1d2e3f4-5555-4000-8000-000000000001",
+    "creative_name": "CrossFit_Box",
+    "file_name": "crossfit_box_1773607751329.png",
+    "platform": "Instagram",
+    "timestamp": "2026-02-08T20:00:00Z",
+    "visual": {
+      "objects_detected": ["athlete", "battle ropes", "dark gym", "sweat"],
+      "logo_screen_ratio": 0.0,
+      "background_setting": "indoor",
+      "dominant_colors": ["#1A1A1A", "#AAFF00", "#0066FF"],
+      "contrast_ratio": 9.4,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 0,
+      "time_to_first_logo": 0.0,
+      "product_exposure_seconds": 0.0,
+      "motion_intensity": 0.0,
+      "total_duration_seconds": 0.0
+    },
+    "textual": {
+      "text_density": 0.18,
+      "cta_type": "imperative",
+      "promotional_text": "Train Without Limits. Velocity HIIT.",
+      "typography_style": "display"
+    },
+    "auditory": {
+      "audio_genre": "none",
+      "voiceover_demographic": "none",
+      "emotional_tone": "energetic",
+      "music_tempo_bpm": 0
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000010",
+    "campaign_id": "c1d2e3f4-5555-4000-8000-000000000001",
+    "creative_name": "Morning_Stretch",
+    "file_name": "morning_stretch_1773607765734.png",
+    "platform": "Instagram",
+    "timestamp": "2026-03-10T08:00:00Z",
+    "visual": {
+      "objects_detected": ["athlete", "balcony", "sunrise", "stretch pose", "railing"],
+      "logo_screen_ratio": 0.04,
+      "background_setting": "outdoor",
+      "dominant_colors": ["#0066FF", "#FF8C00", "#E8DCC8"],
+      "contrast_ratio": 5.7,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 0,
+      "time_to_first_logo": 0.0,
+      "product_exposure_seconds": 0.0,
+      "motion_intensity": 0.0,
+      "total_duration_seconds": 0.0
+    },
+    "textual": {
+      "text_density": 0.16,
+      "cta_type": "imperative",
+      "promotional_text": "Start Slow. Finish Strong. Velocity Recovery.",
+      "typography_style": "sans_serif"
+    },
+    "auditory": {
+      "audio_genre": "none",
+      "voiceover_demographic": "none",
+      "emotional_tone": "calm",
+      "music_tempo_bpm": 0
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000011",
+    "campaign_id": "c1d2e3f4-1111-4000-8000-000000000001",
+    "creative_name": "Runner_Sunrise",
+    "file_name": "runner_sunrise_fast_pacing_A.mp4",
+    "variant": "A",
+    "treatment": {"fast_pacing": 1},
+    "platform": "Instagram",
+    "timestamp": "2026-01-21T08:15:00Z",
+    "visual": {
+      "objects_detected": ["runner", "bridge", "city skyline", "sneakers", "sunrise"],
+      "logo_screen_ratio": 0.06,
+      "background_setting": "urban",
+      "dominant_colors": ["#0066FF", "#FF8C00", "#C0C0C0"],
+      "contrast_ratio": 7.2,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 12,
+      "time_to_first_logo": 1.8,
+      "product_exposure_seconds": 6.5,
+      "motion_intensity": 0.85,
+      "total_duration_seconds": 15.0
+    },
+    "textual": {
+      "text_density": 0.14,
+      "cta_type": "imperative",
+      "promotional_text": "Push Your Limits. Velocity Endurance.",
+      "typography_style": "sans_serif"
+    },
+    "auditory": {
+      "audio_genre": "electronic",
+      "voiceover_demographic": "female_young",
+      "emotional_tone": "energetic",
+      "music_tempo_bpm": 132
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000012",
+    "campaign_id": "c1d2e3f4-1111-4000-8000-000000000001",
+    "creative_name": "Runner_Sunrise",
+    "file_name": "runner_sunrise_slow_pacing_B.mp4",
+    "variant": "B",
+    "treatment": {"fast_pacing": 0},
+    "platform": "Instagram",
+    "timestamp": "2026-01-21T08:15:00Z",
+    "visual": {
+      "objects_detected": ["runner", "bridge", "city skyline", "sneakers", "sunrise"],
+      "logo_screen_ratio": 0.06,
+      "background_setting": "urban",
+      "dominant_colors": ["#0066FF", "#FF8C00", "#C0C0C0"],
+      "contrast_ratio": 7.2,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 4,
+      "time_to_first_logo": 5.0,
+      "product_exposure_seconds": 4.0,
+      "motion_intensity": 0.35,
+      "total_duration_seconds": 15.0
+    },
+    "textual": {
+      "text_density": 0.10,
+      "cta_type": "imperative",
+      "promotional_text": "Push Your Limits. Velocity Endurance.",
+      "typography_style": "sans_serif"
+    },
+    "auditory": {
+      "audio_genre": "ambient",
+      "voiceover_demographic": "none",
+      "emotional_tone": "calm",
+      "music_tempo_bpm": 90
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000013",
+    "campaign_id": "c1d2e3f4-4444-4000-8000-000000000001",
+    "creative_name": "Basketball_Court",
+    "file_name": "basketball_court_fast_pacing_A.mp4",
+    "variant": "A",
+    "treatment": {"fast_pacing": 1},
+    "platform": "TikTok",
+    "timestamp": "2026-02-21T18:00:00Z",
+    "visual": {
+      "objects_detected": ["player", "basketball", "outdoor court", "dusk sky", "hoop"],
+      "logo_screen_ratio": 0.08,
+      "background_setting": "urban",
+      "dominant_colors": ["#1A1A1A", "#AAFF00", "#FF8C00"],
+      "contrast_ratio": 8.7,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 16,
+      "time_to_first_logo": 0.8,
+      "product_exposure_seconds": 4.5,
+      "motion_intensity": 0.97,
+      "total_duration_seconds": 8.0
+    },
+    "textual": {
+      "text_density": 0.18,
+      "cta_type": "urgency",
+      "promotional_text": "Own the Court. Velocity Street.",
+      "typography_style": "display"
+    },
+    "auditory": {
+      "audio_genre": "hip_hop",
+      "voiceover_demographic": "none",
+      "emotional_tone": "energetic",
+      "music_tempo_bpm": 135
+    }
+  },
+  {
+    "asset_id": "a1b2c3d4-1111-4000-8000-000000000014",
+    "campaign_id": "c1d2e3f4-4444-4000-8000-000000000001",
+    "creative_name": "Basketball_Court",
+    "file_name": "basketball_court_slow_pacing_B.mp4",
+    "variant": "B",
+    "treatment": {"fast_pacing": 0},
+    "platform": "TikTok",
+    "timestamp": "2026-02-21T18:00:00Z",
+    "visual": {
+      "objects_detected": ["player", "basketball", "outdoor court", "dusk sky"],
+      "logo_screen_ratio": 0.06,
+      "background_setting": "urban",
+      "dominant_colors": ["#1A1A1A", "#AAFF00", "#FF8C00"],
+      "contrast_ratio": 8.2,
+      "faces_detected": 1
+    },
+    "temporal": {
+      "scene_transitions": 3,
+      "time_to_first_logo": 4.0,
+      "product_exposure_seconds": 2.5,
+      "motion_intensity": 0.30,
+      "total_duration_seconds": 8.0
+    },
+    "textual": {
+      "text_density": 0.10,
+      "cta_type": "imperative",
+      "promotional_text": "Own the Court. Velocity Street.",
+      "typography_style": "display"
+    },
+    "auditory": {
+      "audio_genre": "ambient",
+      "voiceover_demographic": "none",
+      "emotional_tone": "calm",
+      "music_tempo_bpm": 85
+    }
+  }
+]

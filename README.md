@@ -17,6 +17,7 @@
   <a href="#installation">Installation</a> &middot;
   <a href="#quick-start">Quick Start</a> &middot;
   <a href="#how-it-works">How It Works</a> &middot;
+  <a href="#hands-on-playground">Playground</a> &middot;
   <a href="#features">Features</a> &middot;
   <a href="#api-reference">API</a> &middot;
   <a href="#contributing">Contributing</a>
@@ -236,6 +237,310 @@ print(f"{brief.finding} -> {brief.recommendation}")
 ```
 </details>
 
+## Hands-On Playground
+
+The `examples/` directory ships with a complete dataset for **Velocity Sportswear** — a fictional DTC activewear brand with 10 image creatives, 4 A/B video variants, and 1,000 rows of campaign performance data. Everything is wired together so you can exercise every OmniProof module end-to-end.
+
+### Run the offline demo (no API keys)
+
+```bash
+python examples/demo.py
+```
+
+This runs all 9 stages — DAG construction, DML estimation, CATE by segment, refutation, design briefs, brand profile loading, prompt generation, and compliance review — using only local data in ~4 seconds.
+
+### What's in `examples/`
+
+```
+examples/
+  creatives/
+    runner_sunrise_*.png          # 10 image creatives (one per concept)
+    trail_epic_*.png
+    hiit_studio_*.png
+    ...
+    runner_sunrise_fast_pacing_A.mp4   # A/B video variants
+    runner_sunrise_slow_pacing_B.mp4   #   (fast_pacing treatment)
+    basketball_court_fast_pacing_A.mp4
+    basketball_court_slow_pacing_B.mp4
+  data/
+    campaign_performance.csv      # 1,000 rows with planted causal effects
+    brand_profile.json            # Velocity Sportswear brand profile
+    brand_guidelines.json         # 12 brand rules for RAG
+    compliance_samples.json       # 5 compliance reports (PASS/WARN/FAIL)
+    creative_metadata_samples.json # 14 records (10 images + 4 videos)
+```
+
+### With API keys: full pipeline
+
+Set your keys and explore each capability interactively:
+
+```bash
+export OMNI_PROOF_GEMINI_API_KEY=AIza...
+export OMNI_PROOF_PINECONE_API_KEY=pcsk_...
+export OMNI_PROOF_PINECONE_INDEX_HOST=https://your-index.svc.pinecone.io
+```
+
+<details>
+<summary><strong>1. Generate embeddings for the example creatives</strong></summary>
+
+```python
+import asyncio
+from pathlib import Path
+from omni_proof.ingestion.gemini_client import GeminiClient
+from omni_proof.storage.memory_store import InMemoryVectorStore
+
+client = GeminiClient(api_key="AIza...")
+store = InMemoryVectorStore()
+
+async def embed_creatives():
+    creative_dir = Path("examples/creatives")
+    for img in sorted(creative_dir.glob("*.png")):
+        embedding = await client.generate_embedding(img)
+        await store.upsert(
+            asset_id=img.stem,
+            embedding=embedding,
+            metadata={"file": img.name, "type": "image"},
+            namespace="creatives",
+        )
+        print(f"  Embedded {img.name} -> {len(embedding)} dims")
+
+    # Embed video variants too
+    for vid in sorted(creative_dir.glob("*.mp4")):
+        embedding = await client.generate_embedding(vid)
+        await store.upsert(
+            asset_id=vid.stem,
+            embedding=embedding,
+            metadata={"file": vid.name, "type": "video"},
+            namespace="creatives",
+        )
+        print(f"  Embedded {vid.name} -> {len(embedding)} dims")
+
+asyncio.run(embed_creatives())
+```
+</details>
+
+<details>
+<summary><strong>2. Extract structured metadata from a creative</strong></summary>
+
+```python
+import asyncio
+from pathlib import Path
+from omni_proof.ingestion.gemini_client import GeminiClient
+from omni_proof.ingestion.pipeline import IngestPipeline
+from omni_proof.ingestion.schemas import CreativeMetadata
+
+client = GeminiClient(api_key="AIza...")
+pipeline = IngestPipeline(gemini_client=client)
+
+async def extract():
+    asset = Path("examples/creatives/runner_sunrise_1773607608677.png")
+    metadata, embedding = await pipeline.ingest(asset, CreativeMetadata)
+    print(f"Objects: {metadata.visual.objects_detected}")
+    print(f"CTA: {metadata.textual.cta_type} — '{metadata.textual.promotional_text}'")
+    print(f"Embedding: {len(embedding)} dims")
+
+asyncio.run(extract())
+```
+</details>
+
+<details>
+<summary><strong>3. Extract brand identity from the example creatives</strong></summary>
+
+```python
+import asyncio
+from pathlib import Path
+from omni_proof.brand_extraction.extractor import BrandExtractor
+from omni_proof.ingestion.gemini_client import GeminiClient
+from omni_proof.storage.memory_store import InMemoryVectorStore
+
+client = GeminiClient(api_key="AIza...")
+store = InMemoryVectorStore()
+extractor = BrandExtractor(embedding_provider=client, gemini_client=client, vector_store=store)
+
+async def extract_brand():
+    assets = sorted(Path("examples/creatives").glob("*.png"))
+    profile = await extractor.extract("Velocity Sportswear", assets)
+    print(f"Brand: {profile.brand_name}")
+    print(f"Colors: {profile.visual_style.dominant_colors}")
+    print(f"Voice: {profile.voice.formality}, {profile.voice.emotional_register}")
+    print(f"Rules extracted: {len(profile.rules)}")
+    for rule in profile.rules:
+        print(f"  [{rule.section_type}] {rule.description[:80]}...")
+
+asyncio.run(extract_brand())
+```
+</details>
+
+<details>
+<summary><strong>4. Check a creative for brand compliance (RAG)</strong></summary>
+
+```python
+import asyncio
+from pathlib import Path
+from omni_proof.ingestion.gemini_client import GeminiClient
+from omni_proof.storage.memory_store import InMemoryVectorStore
+from omni_proof.rag.brand_retriever import BrandRetriever
+from omni_proof.orchestration.compliance_chain import ComplianceChain
+
+client = GeminiClient(api_key="AIza...")
+store = InMemoryVectorStore()
+
+async def check_compliance():
+    # First, index the brand guidelines as embeddings
+    import json
+    with open("examples/data/brand_guidelines.json") as f:
+        guidelines = json.load(f)
+    for g in guidelines:
+        emb = await client.generate_embedding(g["description"], task_type="RETRIEVAL_DOCUMENT")
+        await store.upsert(
+            asset_id=g["guideline_id"],
+            embedding=emb,
+            metadata={"source_type": "guideline", "section": g["section"]},
+            namespace="brand_assets",
+        )
+    print(f"Indexed {len(guidelines)} brand guidelines")
+
+    # Now check a creative
+    retriever = BrandRetriever(gemini_client=client, vector_store=store)
+    chain = ComplianceChain(gemini_client=client, brand_retriever=retriever)
+    report = await chain.check_compliance(
+        "VEL-2026-Q1-0012",
+        Path("examples/creatives/runner_sunrise_1773607608677.png"),
+    )
+    print(f"Passed: {report.passed} (score: {report.score})")
+    print(f"Guidelines retrieved: {report.evidence_sources}")
+
+asyncio.run(check_compliance())
+```
+</details>
+
+<details>
+<summary><strong>5. Run causal analysis on the campaign data</strong></summary>
+
+```python
+import pandas as pd
+from omni_proof.causal.dag_builder import CausalDAGBuilder
+from omni_proof.causal.identifier import CausalIdentifier
+from omni_proof.causal.estimator import DMLEstimator
+from omni_proof.causal.refuter import CausalRefuter
+
+data = pd.read_csv("examples/data/campaign_performance.csv")
+
+# Encode categoricals
+for col in ["platform", "audience_segment", "region", "quarter"]:
+    data[col] = data[col].astype("category").cat.codes.astype(float)
+
+confounders = ["platform", "audience_segment", "daily_budget_usd", "region", "quarter"]
+
+# Build DAG + identify
+dag = CausalDAGBuilder()
+model = dag.build_dag(data, treatment="fast_pacing", outcome="ctr", confounders=confounders)
+CausalIdentifier().identify_effect(model)
+
+# Estimate ATE
+estimator = DMLEstimator(cv=3, n_estimators=30)
+ate = estimator.estimate_ate(data, "fast_pacing", "ctr", confounders)
+print(f"ATE: {ate.ate*100:+.1f}pp (p={ate.p_value:.4f})")
+
+# CATE by segment
+cate = estimator.estimate_cate(data, "fast_pacing", "ctr", confounders, "audience_segment")
+for seg, eff in cate.segments.items():
+    print(f"  Segment {seg}: {eff.effect*100:+.1f}pp")
+
+# Refutation
+refuter = CausalRefuter(cv=3)
+placebo = refuter.placebo_test(data, "fast_pacing", "ctr", confounders)
+subset = refuter.subset_test(data, "fast_pacing", "ctr", confounders)
+print(f"Placebo: {'PASS' if placebo.passed else 'FAIL'}")
+print(f"Subset:  {'PASS' if subset.passed else 'FAIL'}")
+```
+</details>
+
+<details>
+<summary><strong>6. Synthesize design brief + generate creative prompt</strong></summary>
+
+```python
+from omni_proof.orchestration.insight_synthesizer import InsightSynthesizer
+from omni_proof.api.generative_loop import GenerativePromptBuilder
+
+# Using the cate result from step 5
+brief = InsightSynthesizer().synthesize(cate)
+print(f"Finding: {brief.finding}")
+print(f"Recommendation: {brief.recommendation}")
+print(f"Confidence: {brief.confidence}")
+
+# Generate a creative prompt combining causal insights + brand rules
+import json
+with open("examples/data/brand_profile.json") as f:
+    profile = json.load(f)
+
+builder = GenerativePromptBuilder()
+prompt = builder.build_prompt(
+    cate_insights=[{"treatment": "fast_pacing", "effect": 0.025}],
+    brand_rules=[{"description": r["description"]} for r in profile["rules"]],
+    target_segment="Gen-Z (18-24)",
+    objective="conversion",
+    constraints=["9:16 vertical", "max 15 seconds", "product reveal by second 5"],
+)
+print(prompt)
+```
+</details>
+
+<details>
+<summary><strong>7. Compare A/B video embeddings (DICE-DML prep)</strong></summary>
+
+```python
+import asyncio
+import numpy as np
+from pathlib import Path
+from omni_proof.ingestion.gemini_client import GeminiClient
+
+client = GeminiClient(api_key="AIza...")
+
+async def compare_ab():
+    creatives = Path("examples/creatives")
+
+    # Embed both variants
+    emb_a = await client.generate_embedding(creatives / "runner_sunrise_fast_pacing_A.mp4")
+    emb_b = await client.generate_embedding(creatives / "runner_sunrise_slow_pacing_B.mp4")
+
+    a, b = np.array(emb_a), np.array(emb_b)
+    cosine_sim = np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+    treatment_fingerprint = a - b  # isolates the fast_pacing signal
+
+    print(f"Variant A dims: {len(emb_a)}")
+    print(f"Variant B dims: {len(emb_b)}")
+    print(f"Cosine similarity: {cosine_sim:.4f}")
+    print(f"Treatment fingerprint norm: {np.linalg.norm(treatment_fingerprint):.4f}")
+    print("(This fingerprint feeds into VisualDMLEstimator for DICE-DML)")
+
+asyncio.run(compare_ab())
+```
+</details>
+
+<details>
+<summary><strong>8. Start the API server with example data</strong></summary>
+
+```bash
+# Start the server
+uvicorn omni_proof.api.app:create_app --factory --reload
+
+# Health check
+curl localhost:8000/health
+
+# Trigger causal analysis
+curl -X POST localhost:8000/api/v1/causal/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"treatment": "fast_pacing", "outcome": "ctr",
+       "confounders": ["platform", "audience_segment", "daily_budget_usd"]}'
+
+# Generate a creative prompt
+curl -X POST localhost:8000/api/v1/generative/prompt \
+  -H "Content-Type: application/json" \
+  -d '{"target_segment": "Gen-Z (18-24)", "objective": "conversion"}'
+```
+</details>
+
 ## API Reference
 
 | Method | Endpoint | Description |
@@ -293,9 +598,9 @@ All modalities map to the same 3072-dimensional semantic space via [Gemini Embed
 ## Testing
 
 ```bash
-pytest tests/unit/ -v               # 140 unit tests
-pytest tests/integration/ -v        # 17 integration tests
-pytest tests/ -v                    # All 157 tests
+pytest tests/unit/ -v               # 150 unit tests
+pytest tests/integration/ -v        # 53 integration tests
+pytest tests/ -v                    # All 203 tests
 ruff check src/ tests/              # Lint
 ```
 

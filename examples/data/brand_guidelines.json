@@ -1,0 +1,74 @@
+[
+  {
+    "guideline_id": "gl-001",
+    "section": "Primary Color Palette",
+    "description": "Electric Blue #0066FF is the primary brand color (60% usage). Volt Green #AAFF00 is the accent color for CTAs and highlights (20%). Carbon Black #1A1A1A for text and dark backgrounds (15%). Pure White #FFFFFF for negative space (5%).",
+    "tags": ["color", "palette", "primary"]
+  },
+  {
+    "guideline_id": "gl-002",
+    "section": "Secondary Color Palette",
+    "description": "Slate Grey #6B7280 for secondary text, dividers, and UI elements. Warm Sand #E8DCC8 for lifestyle backgrounds and earthy product shots. These colors never appear in CTAs or headlines.",
+    "tags": ["color", "palette", "secondary"]
+  },
+  {
+    "guideline_id": "gl-003",
+    "section": "Typography Hierarchy",
+    "description": "H1: Montserrat Bold 28-36px, tracking -0.02em. H2: Montserrat SemiBold 20-24px. Body: Source Sans Pro Regular 16px (14px absolute minimum). Caption: Source Sans Pro Light 12px. All web text must pass WCAG AA contrast (4.5:1 body, 3:1 large text).",
+    "tags": ["typography", "fonts", "hierarchy"]
+  },
+  {
+    "guideline_id": "gl-004",
+    "section": "Logo Clear Space",
+    "description": "Minimum 32px clear space around all edges of the logo. Hero sections require 48px clear space. Logo must never be placed over busy backgrounds, athlete faces, or product details. Only the horizontal lockup is approved for digital use.",
+    "tags": ["logo", "spacing", "placement"]
+  },
+  {
+    "guideline_id": "gl-005",
+    "section": "Photography Standards",
+    "description": "Feature real athletes in authentic movement — running, stretching, training. Mandatory diversity in body types, ethnicities, ages, and abilities. Golden hour and natural lighting preferred. No stock photos, no composite images, no heavy retouching of body shapes.",
+    "tags": ["photography", "imagery", "athletes"]
+  },
+  {
+    "guideline_id": "gl-006",
+    "section": "Video Pacing",
+    "description": "First 2 seconds must feature dynamic movement (running, jumping, stretching). Product or logo reveal by second 5. Maximum cut duration 0.3 seconds for fast-paced edits. End card with logo + CTA must hold for minimum 2 seconds. Kinetic typography for key messages.",
+    "tags": ["video", "pacing", "motion"]
+  },
+  {
+    "guideline_id": "gl-007",
+    "section": "Audio Specification",
+    "description": "Music tempo 120-140 BPM. Electronic/indie crossover genre preferred. Audio fade-in over 0.5 seconds (no hard cuts). Voiceover must be conversational and warm (not announcer-style). No heavy bass drops, aggressive EDM, or jarring sound effects.",
+    "tags": ["audio", "music", "voiceover"]
+  },
+  {
+    "guideline_id": "gl-008",
+    "section": "Social Media Formats",
+    "description": "Stories/Reels: 9:16 vertical (1080x1920). Feed posts: 1:1 square (1080x1080). YouTube pre-roll: 16:9 (1920x1080). All formats must include safe zones for platform UI overlays. Text should not extend into the outer 10% margins.",
+    "tags": ["social", "formats", "dimensions"]
+  },
+  {
+    "guideline_id": "gl-009",
+    "section": "Prohibited Elements",
+    "description": "NEVER use: neon pink or red (#FF3333, #FF00FF) palette, serif fonts, static product-only shots without human context, aggressive language ('crush', 'destroy', 'dominate'), body-shaming copy, or competitive put-downs.",
+    "tags": ["prohibited", "restrictions"]
+  },
+  {
+    "guideline_id": "gl-010",
+    "section": "Seasonal Themes",
+    "description": "Q1 (Jan-Mar): New Year motivation, fresh starts, indoor-to-outdoor transition. Q2 (Apr-Jun): Outdoor trail running, summer prep, adventure. Q3 (Jul-Sep): Back-to-school athletics, team sports, campus energy. Q4 (Oct-Dec): Holiday gifting, winter training, reflective year-end.",
+    "tags": ["seasonal", "campaigns", "themes"]
+  },
+  {
+    "guideline_id": "gl-011",
+    "section": "CTA Guidelines",
+    "description": "CTAs must be action-oriented and inspirational. Approved CTAs: 'Push Your Limits', 'Move with Purpose', 'Start Your Journey', 'Own the Moment', 'Find Your Pace'. Prohibited: 'Buy Now', 'Limited Time', 'Don't Miss Out', 'Crush the Competition'. CTA buttons use Volt Green #AAFF00 background with Carbon Black #1A1A1A text.",
+    "tags": ["cta", "copy", "buttons"]
+  },
+  {
+    "guideline_id": "gl-012",
+    "section": "Accessibility Requirements",
+    "description": "All digital assets must meet WCAG 2.1 AA compliance. Minimum contrast ratio 4.5:1 for body text, 3:1 for large text (18px+). Alt text required for all images. Captions required for all video content. Color must not be the sole means of conveying information.",
+    "tags": ["accessibility", "wcag", "compliance"]
+  }
+]

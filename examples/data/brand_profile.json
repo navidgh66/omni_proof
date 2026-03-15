@@ -1,0 +1,96 @@
+{
+  "profile_id": "vel-brand-2026-001",
+  "brand_name": "Velocity Sportswear",
+  "rules": [
+    {
+      "rule_id": "vel-rule-color-001",
+      "section_type": "color_palette",
+      "description": "Primary palette: Electric Blue #0066FF (60%), Volt Green #AAFF00 (20%), Carbon Black #1A1A1A (15%), Pure White #FFFFFF (5%). Blue dominates hero sections; green for CTAs and accents only.",
+      "hex_codes": ["#0066FF", "#AAFF00", "#1A1A1A", "#FFFFFF"],
+      "tone_keywords": []
+    },
+    {
+      "rule_id": "vel-rule-typo-002",
+      "section_type": "typography",
+      "description": "Headlines: Montserrat Bold 28px minimum. Subheads: Montserrat SemiBold 20px. Body: Source Sans Pro Regular 16px minimum (14px absolute floor). Never use serif fonts.",
+      "approved_fonts": ["Montserrat", "Source Sans Pro"],
+      "hex_codes": []
+    },
+    {
+      "rule_id": "vel-rule-logo-003",
+      "section_type": "logo_rules",
+      "description": "Horizontal lockup only. Minimum 32px clear space around logo (48px preferred on hero sections). Never place on busy backgrounds or over athlete faces.",
+      "min_clear_space_px": 32,
+      "hex_codes": []
+    },
+    {
+      "rule_id": "vel-rule-tone-004",
+      "section_type": "tone",
+      "description": "Voice is energetic, aspirational, and inclusive. Celebrate personal progress over competition. Never use aggressive, exclusive, or body-shaming language.",
+      "tone_keywords": ["energetic", "aspirational", "inclusive", "movement", "self-improvement"],
+      "hex_codes": []
+    },
+    {
+      "rule_id": "vel-rule-imagery-005",
+      "section_type": "imagery",
+      "description": "Feature real athletes in natural movement. Diversity in body types, ethnicities, and abilities is required. Golden hour lighting preferred. No stock photos or static product-only shots.",
+      "hex_codes": [],
+      "tone_keywords": ["natural movement", "diverse athletes", "golden hour"]
+    },
+    {
+      "rule_id": "vel-rule-motion-006",
+      "section_type": "motion",
+      "description": "Dynamic transitions with 0.3s maximum cut duration. Kinetic typography for key messages. First 2 seconds must show movement; product reveal by second 5.",
+      "hex_codes": [],
+      "tone_keywords": ["dynamic", "kinetic"]
+    },
+    {
+      "rule_id": "vel-rule-cta-007",
+      "section_type": "cta",
+      "description": "Action-oriented CTAs that inspire without pressuring. Approved: 'Push Your Limits', 'Move with Purpose', 'Start Your Journey', 'Own the Moment'. Prohibited: 'Buy Now', 'Don't Miss Out', 'Crush the Competition'.",
+      "hex_codes": [],
+      "tone_keywords": ["action-oriented", "inspirational"]
+    },
+    {
+      "rule_id": "vel-rule-audio-008",
+      "section_type": "audio",
+      "description": "Upbeat 120-140 BPM tracks. Electronic/indie crossover preferred. Fade-in over 0.5s. Voiceover in conversational tone. No heavy bass drops or aggressive EDM.",
+      "hex_codes": [],
+      "tone_keywords": ["upbeat", "electronic", "indie"]
+    }
+  ],
+  "voice": {
+    "formality": "casual-confident",
+    "emotional_register": "inspirational",
+    "vocabulary_themes": ["performance", "movement", "self-improvement", "endurance"],
+    "sentence_style": "Short, punchy sentences. Active voice. Second person ('you') to create direct connection.",
+    "confidence": 0.91
+  },
+  "visual_style": {
+    "dominant_colors": ["#0066FF", "#AAFF00", "#1A1A1A"],
+    "color_consistency": 0.94,
+    "typography_styles": ["sans_serif", "display"],
+    "layout_patterns": ["full-bleed hero", "split-screen action", "vertical-first mobile"],
+    "motion_style": "dynamic-kinetic",
+    "confidence": 0.82
+  },
+  "visual_fingerprint": [0.0],
+  "source_assets": [
+    "vel_brand_guide_2026.pdf",
+    "vel_hero_campaign_spring.mp4",
+    "vel_social_templates_q1.psd",
+    "vel_product_catalog_ss26.pdf",
+    "vel_athlete_photo_series.zip"
+  ],
+  "extractions": [],
+  "confidence_scores": {
+    "color": 0.94,
+    "typography": 0.87,
+    "voice": 0.91,
+    "imagery": 0.82,
+    "motion": 0.79,
+    "audio": 0.85
+  },
+  "created_at": "2026-01-05T10:30:00Z",
+  "updated_at": "2026-03-01T14:22:00Z"
+}
