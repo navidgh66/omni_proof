@@ -67,6 +67,30 @@ Causal analysis layer needs no API keys — works with local data only.
 - Global exception handler: no stack traces leaked to clients
 - Causal route: treatment/outcome validated with `^[a-zA-Z_][a-zA-Z0-9_]*$` pattern
 
+## Data Generation Rules
+- When generating demo data across multiple files (CSV, JSON, images), validate all cross-references in a single pass before declaring done
+- Creative names must be consistent across: CSV `creative_name` column, metadata JSON `creative_name` field, and actual filenames in `examples/creatives/`
+- Always validate generated JSON against Pydantic schemas: `BrandProfile`, `CreativeMetadata`, `ComplianceReport`
+- Run `python examples/demo.py` after any example data changes to verify end-to-end
+
+## Workflow Rules
+- When reviewing PRs, always fetch fresh diff data from remote — never rely on cached data
+- When a skill or plugin applies, invoke it immediately — do not begin work without checking first
+- When asked about a specific PR/branch/issue number, scope all actions to that exact item only
+
+## Automations
+
+### Hooks (`.claude/settings.local.json`)
+- **Auto-lint**: `ruff check --fix` + `ruff format` runs automatically on every `.py` file after Edit/Write
+- **Block secrets**: Edits to `.env`, `.secret`, `.key`, `credentials` files are blocked pre-Edit/Write
+
+### Skills
+- `/validate-examples` — validates all example data cross-consistency, Pydantic schemas, and demo run
+- `/release-check` — pre-release checklist: version bump, changelog, tests, lint, types, build, branch, clean tree
+
+### Subagents
+- `security-reviewer` (`.claude/agents/security-reviewer.md`) — reviews code for OWASP top 10 + regressions against existing security hardening
+
 ## Gotchas
 - Use `async_sessionmaker` (not `sessionmaker`) for SQLAlchemy async — mypy rejects the sync overload with AsyncEngine
 - `Counter` variables need explicit type annotations (`Counter[str]`) for mypy
