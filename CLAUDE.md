@@ -14,14 +14,15 @@ Causal-Multimodal Engine for Creative Performance Attribution using Gemini Embed
 ## Commands
 ```bash
 pip install -e ".[dev]"                          # Install
-pytest -v --tb=short                             # Run all tests (157)
-pytest tests/unit/ -v                            # Unit tests (140)
-pytest tests/integration/ -v                     # Integration tests (17)
+pytest -v --tb=short                             # Run all tests (203)
+pytest tests/unit/ -v                            # Unit tests (150)
+pytest tests/integration/ -v                     # Integration tests (53)
 ruff check src/ tests/                           # Lint
 ruff format src/ tests/                          # Format
 mypy src/omni_proof/ --ignore-missing-imports    # Type check
 python -m build                                  # Build wheel + sdist
 docker-compose up -d                             # Start API + PostgreSQL
+python examples/demo.py                          # Run offline demo (~4s, no API keys)
 ```
 
 ## Environment Setup
@@ -49,12 +50,30 @@ Causal analysis layer needs no API keys — works with local data only.
 - Brand compliance: embed asset -> retrieve guidelines (RAG) -> evaluate -> report
 - BrandExtractor: extract structured brand identity from multimodal assets with conflict detection
 
+## Examples & Demo Data
+- **Brand**: Velocity Sportswear (fictional DTC activewear)
+- `examples/creatives/` — 10 PNG images + 4 MP4 A/B video variants (fast_pacing treatment)
+- `examples/data/` — campaign_performance.csv (1000 rows, 2 planted causal effects), brand_profile.json, brand_guidelines.json (12 rules), compliance_samples.json, creative_metadata_samples.json (14 records)
+- `examples/demo.py` — 9-stage offline demo: DAG, ATE, CATE, refutation, brief, brand, prompt, compliance
+- Creative names consistent across CSV, metadata JSON, and actual files (e.g. `Runner_Sunrise`)
+- CSV planted effects: `fast_pacing` (ATE ~+1.9pp CTR, heterogeneous by segment), `warm_color_palette` (ATE ~+0.6pp)
+- All JSON validates against Pydantic schemas (BrandProfile, CreativeMetadata)
+
+## Security
+- CORS: restricted to localhost origins, methods limited to GET/POST
+- Path traversal: `field_validator` on `asset_paths` rejects `..` and unsafe chars
+- Upload filenames: `_sanitize_filename()` strips path components + unsafe chars
+- Input validation: `Field(min_length, max_length, pattern)` on all API request models
+- Global exception handler: no stack traces leaked to clients
+- Causal route: treatment/outcome validated with `^[a-zA-Z_][a-zA-Z0-9_]*$` pattern
+
 ## Gotchas
 - Use `async_sessionmaker` (not `sessionmaker`) for SQLAlchemy async — mypy rejects the sync overload with AsyncEngine
 - `Counter` variables need explicit type annotations (`Counter[str]`) for mypy
 - Gemini `generate_embedding` config dict must be typed `dict[str, Any]` because it mixes `int` and `str` values
 - DAG template values from dicts are `Sequence[str]` — cast with `str()` / `list()` before passing to typed methods
 - `generate_embedding` retry loop needs an explicit `raise` after the loop for mypy return-type satisfaction
+- `langchain`/`langgraph` were removed — never imported, were dead dependencies
 
 ## Releasing to PyPI
 Tags must be on the `main` branch — the release workflow rejects tags on other branches.
