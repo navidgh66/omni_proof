@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <strong>From correlation to causation.<br>Upload creatives, discover <em>why</em> they perform.</strong>
+  <strong>The engine that sees your creatives (Gemini Embedding 2), extracts their DNA automatically, and proves what causes performance.<br>Not vibes. Not correlations. <em>Proof.</em></strong>
 </p>
 
 <p align="center">
