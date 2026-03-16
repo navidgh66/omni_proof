@@ -7,9 +7,10 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/navidgh66/omni_proof/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/navidgh66/omni_proof/ci.yml?branch=main&style=for-the-badge&label=CI" alt="CI"></a>
-  <a href="https://pypi.org/project/omni-proof/"><img src="https://img.shields.io/pypi/v/omni-proof?style=for-the-badge&color=blue" alt="PyPI"></a>
-  <a href="https://pypi.org/project/omni-proof/"><img src="https://img.shields.io/pypi/pyversions/omni-proof?style=for-the-badge" alt="Python"></a>
+  <a href="https://github.com/navidgh66/omni_proof/releases"><img src="https://img.shields.io/github/v/release/navidgh66/omni_proof?style=for-the-badge&label=Release&color=blue" alt="Release"></a>
+  <a href="https://github.com/navidgh66/omni_proof"><img src="https://img.shields.io/badge/python-3.11+-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
+  <a href="https://github.com/navidgh66/omni_proof/stargazers"><img src="https://img.shields.io/github/stars/navidgh66/omni_proof?style=for-the-badge&color=yellow" alt="Stars"></a>
+  <a href="https://github.com/navidgh66/omni_proof/pulls"><img src="https://img.shields.io/github/issues-pr/navidgh66/omni_proof?style=for-the-badge&color=purple&label=PRs" alt="Pull Requests"></a>
   <a href="https://github.com/navidgh66/omni_proof/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="MIT License"></a>
 </p>
 
