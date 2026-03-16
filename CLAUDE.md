@@ -55,6 +55,8 @@ Causal analysis layer needs no API keys — works with local data only.
 - `examples/creatives/` — 10 PNG images + 4 MP4 A/B video variants (fast_pacing treatment)
 - `examples/data/` — campaign_performance.csv (1000 rows, 2 planted causal effects), brand_profile.json, brand_guidelines.json (12 rules), compliance_samples.json, creative_metadata_samples.json (14 records)
 - `examples/demo.py` — 9-stage offline demo: DAG, ATE, CATE, refutation, brief, brand, prompt, compliance
+- `examples/playground.ipynb` — 10-walkthrough notebook using Pinecone (not InMemory), includes DICE-DML + embeddings-to-causal merge
+- `examples/playground_output.ipynb` — same notebook with saved outputs (visual showcase for README)
 - Creative names consistent across CSV, metadata JSON, and actual files (e.g. `Runner_Sunrise`)
 - CSV planted effects: `fast_pacing` (ATE ~+1.9pp CTR, heterogeneous by segment), `warm_color_palette` (ATE ~+0.6pp)
 - All JSON validates against Pydantic schemas (BrandProfile, CreativeMetadata)
@@ -77,6 +79,8 @@ Causal analysis layer needs no API keys — works with local data only.
 - When reviewing PRs, always fetch fresh diff data from remote — never rely on cached data
 - When a skill or plugin applies, invoke it immediately — do not begin work without checking first
 - When asked about a specific PR/branch/issue number, scope all actions to that exact item only
+- Repo is private — shields.io badges fail. Use GitHub-native badge URLs or static badges instead.
+- Git local config uses `navidgh66` account — do not change global git config
 
 ## Automations
 
@@ -98,6 +102,7 @@ Causal analysis layer needs no API keys — works with local data only.
 - DAG template values from dicts are `Sequence[str]` — cast with `str()` / `list()` before passing to typed methods
 - `generate_embedding` retry loop needs an explicit `raise` after the loop for mypy return-type satisfaction
 - `langchain`/`langgraph` were removed — never imported, were dead dependencies
+- `.ipynb` files: Edit tool is blocked; use NotebookEdit for cell edits or Bash with `python -c` for JSON-level changes (e.g. replacing strings across all cells)
 
 ## Releasing to PyPI
 Tags must be on the `main` branch — the release workflow rejects tags on other branches.
