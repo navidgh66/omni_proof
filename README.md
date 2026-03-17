@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png" width="320" alt="OmniProof" />
+  <img src="https://raw.githubusercontent.com/navidgh66/omni_proof/main/assets/logo.png" width="320" alt="OmniProof" />
 </p>
 
 <p align="center">
