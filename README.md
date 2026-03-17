@@ -26,9 +26,9 @@
 
 ---
 
-**OmniProof** is an open-source Python engine that answers **why** creative assets perform differently. It replaces gut-feel marketing analytics with rigorous causal inference -- moving from *"ads with blue backgrounds got more clicks"* to *"blue backgrounds **cause** a +12% CTR uplift for the 18-24 segment, controlling for platform, budget, and seasonality."*
+Everyone knows *which* creatives performed. Nobody knows *why*. **OmniProof** does.
 
-It combines **Gemini Embedding 2** for native multimodal understanding, **Double Machine Learning** for causal estimation, and **RAG-based brand compliance** into a single, modular pipeline.
+Upload any creative — video, image, PDF. OmniProof embeds it (**Gemini Embedding 2**), extracts structured metadata automatically, estimates causal effects with **Double Machine Learning**, and checks brand compliance via **RAG**. The output isn't a dashboard of correlations. It's proof: *"blue backgrounds **cause** a +12% CTR uplift for 18-24, controlling for platform, budget, and seasonality."*
 
 ## Highlights
 
