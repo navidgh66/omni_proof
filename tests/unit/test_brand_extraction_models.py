@@ -1,6 +1,6 @@
 """Tests for brand extraction data models."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from omni_proof.brand_extraction.models import (
     AssetExtraction,
@@ -62,7 +62,7 @@ class TestAssetExtraction:
             media_type="image",
             embedding=[0.1] * 3072,
             structured_metadata=_make_metadata(),
-            extracted_at=datetime.now(timezone.utc),
+            extracted_at=datetime.now(UTC),
         )
         assert ext.media_type == "image"
         assert len(ext.embedding) == 3072
@@ -70,7 +70,7 @@ class TestAssetExtraction:
 
 class TestBrandProfile:
     def test_valid_construction(self):
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         profile = BrandProfile(
             profile_id="bp-1",
             brand_name="TestBrand",

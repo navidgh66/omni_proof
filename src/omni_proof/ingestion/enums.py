@@ -1,9 +1,9 @@
 """Enum types for creative metadata extraction taxonomy."""
 
-from enum import Enum
+from enum import StrEnum
 
 
-class BackgroundSetting(str, Enum):
+class BackgroundSetting(StrEnum):
     INDOOR = "indoor"
     OUTDOOR = "outdoor"
     ABSTRACT = "abstract"
@@ -12,14 +12,14 @@ class BackgroundSetting(str, Enum):
     NATURE = "nature"
 
 
-class CTAType(str, Enum):
+class CTAType(StrEnum):
     URGENCY = "urgency"
     PASSIVE = "passive"
     INQUISITIVE = "inquisitive"
     IMPERATIVE = "imperative"
 
 
-class EmotionalTone(str, Enum):
+class EmotionalTone(StrEnum):
     AUTHORITATIVE = "authoritative"
     CONVERSATIONAL = "conversational"
     ENERGETIC = "energetic"
@@ -28,7 +28,7 @@ class EmotionalTone(str, Enum):
     INSPIRATIONAL = "inspirational"
 
 
-class AudioGenre(str, Enum):
+class AudioGenre(StrEnum):
     POP = "pop"
     ELECTRONIC = "electronic"
     AMBIENT = "ambient"
@@ -38,7 +38,7 @@ class AudioGenre(str, Enum):
     NONE = "none"
 
 
-class TypographyStyle(str, Enum):
+class TypographyStyle(StrEnum):
     SERIF = "serif"
     SANS_SERIF = "sans_serif"
     DISPLAY = "display"
@@ -46,7 +46,7 @@ class TypographyStyle(str, Enum):
     MONOSPACE = "monospace"
 
 
-class VoiceoverDemographic(str, Enum):
+class VoiceoverDemographic(StrEnum):
     MALE_YOUNG = "male_young"
     FEMALE_YOUNG = "female_young"
     MALE_MATURE = "male_mature"

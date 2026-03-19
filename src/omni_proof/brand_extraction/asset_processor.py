@@ -1,7 +1,7 @@
 """Processes individual assets through Gemini Flash and Embedding 2."""
 
 import asyncio
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import structlog
@@ -51,7 +51,7 @@ class AssetProcessor:
             media_type=media_type,
             embedding=embedding,
             structured_metadata=metadata,
-            extracted_at=datetime.now(timezone.utc),
+            extracted_at=datetime.now(UTC),
         )
 
     async def process_batch(self, assets: list[Path]) -> list[AssetExtraction]:

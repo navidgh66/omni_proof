@@ -321,7 +321,7 @@ def test_confidence_scores_structure():
     assert "visual" in confidence
 
     # All values should be between 0 and 1
-    for key, value in confidence.items():
+    for _key, value in confidence.items():
         assert 0.0 <= value <= 1.0
 
 

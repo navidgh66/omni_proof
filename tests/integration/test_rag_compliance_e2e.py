@@ -26,7 +26,7 @@ def mock_embedding():
         content_str = str(content)
         emb = [0.0] * 3072
         # Create a deterministic but content-dependent embedding
-        for i, c in enumerate(content_str):
+        for _i, c in enumerate(content_str):
             emb[ord(c) % 3072] += 0.1
         # Normalize
         norm = sum(x**2 for x in emb) ** 0.5

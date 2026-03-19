@@ -59,7 +59,7 @@ class TestIngestionStorageE2E:
 
         assert len(results) == 5
 
-        for i, (meta, emb) in enumerate(results):
+        for i, (_meta, emb) in enumerate(results):
             await vector_store.upsert(f"asset-{i}", emb, {"index": i})
 
         search = await vector_store.search([1.0] + [0.0] * 3071, top_k=10)

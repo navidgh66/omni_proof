@@ -1,6 +1,6 @@
 """Tests for BrandExtractor orchestrator."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from unittest.mock import AsyncMock, patch
 
@@ -44,7 +44,7 @@ def _make_extraction(path="/tmp/ad.jpg"):
             logo_detected=True,
             media_type_detected="image",
         ),
-        extracted_at=datetime.now(timezone.utc),
+        extracted_at=datetime.now(UTC),
     )
 
 
@@ -91,7 +91,7 @@ class TestBrandExtractorUpdate:
     async def test_update_detects_conflicts(self, mock_deps):
         embedding, gemini, store = mock_deps
         extractor = BrandExtractor(embedding, gemini, store)
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         existing = BrandProfile(
             profile_id="bp-1",
             brand_name="TestBrand",

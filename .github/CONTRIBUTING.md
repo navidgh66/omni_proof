@@ -6,7 +6,7 @@ Thank you for your interest in contributing to OmniProof!
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-org/omni_proof.git
+   git clone https://github.com/navidgh66/omni_proof.git
    cd omni_proof
    ```
 
@@ -76,6 +76,10 @@ mypy src/
 - Use type hints where possible
 - Keep line length to 100 characters
 - Write docstrings for public APIs
+
+## AI-Assisted Development
+
+This project includes a `CLAUDE.md` file and `.claude/` directory for [Claude Code](https://claude.ai/claude-code) users. These provide project context for AI-assisted development. Non-Claude-Code users can safely ignore these files.
 
 ## Questions?
 

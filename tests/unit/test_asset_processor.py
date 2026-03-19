@@ -1,6 +1,6 @@
 """Unit tests for brand asset processor."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from unittest.mock import AsyncMock
 
@@ -81,7 +81,7 @@ async def test_process_single_asset(asset_processor, mock_brand_metadata):
     assert result.embedding == [0.1] * 3072
     assert result.structured_metadata == mock_brand_metadata
     assert isinstance(result.extracted_at, datetime)
-    assert result.extracted_at.tzinfo == timezone.utc
+    assert result.extracted_at.tzinfo == UTC
 
 
 @pytest.mark.asyncio

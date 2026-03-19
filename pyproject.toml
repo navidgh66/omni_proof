@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "omni-proof"
-version = "0.0.3"
+version = "0.0.4"
 description = "Causal-Multimodal Engine for Creative Performance Attribution"
 requires-python = ">=3.11"
 authors = [{name = "OmniProof Contributors"}]
@@ -26,23 +26,23 @@ classifiers = [
 ]
 dependencies = [
     "google-genai>=1.0.0",
-    "pydantic>=2.0.0",
-    "pydantic-settings>=2.0.0",
+    "pydantic>=2.0.0,<3",
+    "pydantic-settings>=2.0.0,<3",
     "dowhy>=0.11",
     "econml>=0.15",
-    "pinecone>=5.0.0",
+    "pinecone>=5.0.0,<7",
     "python-multipart>=0.0.20",
-    "sqlalchemy[asyncio]>=2.0.0",
+    "sqlalchemy[asyncio]>=2.0.0,<3",
     "alembic>=1.13.0",
     "aiosqlite>=0.20.0",
     "httpx>=0.27.0",
     "structlog>=24.0.0",
     "fastapi>=0.115.0",
     "uvicorn>=0.30.0",
-    "lightgbm>=4.0.0",
-    "numpy>=1.26.0",
-    "pandas>=2.2.0",
-    "scikit-learn>=1.4.0",
+    "lightgbm>=4.0.0,<5",
+    "numpy>=1.26.0,<3",
+    "pandas>=2.2.0,<3",
+    "scikit-learn>=1.4.0,<2",
 ]
 
 [project.urls]
@@ -53,6 +53,14 @@ Changelog = "https://github.com/navidgh66/omni_proof/blob/main/CHANGELOG.md"
 Issues = "https://github.com/navidgh66/omni_proof/issues"
 
 [project.optional-dependencies]
+api = [
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.0",
+]
+docs = [
+    "mkdocs-material",
+    "mkdocstrings[python]",
+]
 dev = [
     "pytest>=8.0.0",
     "pytest-asyncio>=0.24.0",
@@ -60,6 +68,9 @@ dev = [
     "ruff>=0.5.0",
     "mypy>=1.10.0",
 ]
+
+[project.scripts]
+omniproof-demo = "omni_proof._cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/omni_proof"]
@@ -73,4 +84,11 @@ target-version = "py311"
 line-length = 100
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "W"]
+select = ["E", "F", "I", "W", "UP", "B", "SIM", "RUF"]
+ignore = ["RUF059", "B008"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

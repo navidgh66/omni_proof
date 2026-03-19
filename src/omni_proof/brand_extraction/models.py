@@ -4,7 +4,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, Field
 
-from omni_proof.rag.models import BrandRule  # noqa: F401
+from omni_proof.rag.models import BrandRule
 
 
 class BrandColorInfo(BaseModel):

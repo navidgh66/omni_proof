@@ -7,6 +7,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from omni_proof import __version__
 from omni_proof.api.routes import brand, causal, compliance, generative, insights
 from omni_proof.config.settings import Settings
 
@@ -26,7 +27,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app = FastAPI(
         title="OmniProof",
         description="Causal-Multimodal Engine for Creative Performance Attribution",
-        version="0.0.1",
+        version=__version__,
         lifespan=lifespan,
     )
     app.state.settings = settings

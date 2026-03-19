@@ -29,6 +29,6 @@ async def generate_prompt(request: PromptRequest):
             constraints=request.constraints,
         )
         return {"prompt": prompt}
-    except Exception:
+    except Exception as exc:
         logger.exception("prompt_generation_failed")
-        raise HTTPException(status_code=500, detail="Prompt generation failed")
+        raise HTTPException(status_code=500, detail="Prompt generation failed") from exc

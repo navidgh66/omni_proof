@@ -16,7 +16,7 @@ Causal-Multimodal Engine for Creative Performance Attribution using Gemini Embed
 - pytest + pytest-asyncio for testing
 
 ## Version & Release
-- Current version: `0.0.1` (in pyproject.toml, single source of truth via `importlib.metadata`)
+- Current version: `0.0.4` (in pyproject.toml, single source of truth via `importlib.metadata`)
 - Published to PyPI as `omni-proof` (yanked — was test publish)
 - Release workflow: `.github/workflows/release.yml` — triggers on `v*` tags, verifies tag is on main
 - PyPI trusted publisher configured: owner `navidgh66`, repo `omni_proof`, workflow `release.yml`, env `pypi`

@@ -13,6 +13,7 @@ from omni_proof.core.interfaces import EmbeddingProvider
 from omni_proof.ingestion.gemini_client import GeminiClient
 from omni_proof.orchestration.compliance_chain import ComplianceChain
 from omni_proof.orchestration.insight_synthesizer import InsightSynthesizer
+from omni_proof.storage.memory_store import InMemoryVectorStore
 from omni_proof.storage.vector_store import PineconeVectorStore, VectorStore
 
 __all__ = [
@@ -23,6 +24,7 @@ __all__ = [
     "EmbeddingProvider",
     "Estimator",
     "GeminiClient",
+    "InMemoryVectorStore",
     "InsightSynthesizer",
     "PineconeVectorStore",
     "Settings",

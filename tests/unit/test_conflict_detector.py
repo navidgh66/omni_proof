@@ -1,6 +1,6 @@
 """Unit tests for ConflictDetector."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from omni_proof.brand_extraction.conflict_detector import ConflictDetector
 from omni_proof.brand_extraction.models import (
@@ -34,8 +34,8 @@ def _make_profile(**overrides) -> BrandProfile:
         "visual_fingerprint": [0.1] * 3072,
         "source_assets": ["asset1.png"],
         "confidence_scores": {},
-        "created_at": datetime.now(timezone.utc),
-        "updated_at": datetime.now(timezone.utc),
+        "created_at": datetime.now(UTC),
+        "updated_at": datetime.now(UTC),
     }
     defaults.update(overrides)
     return BrandProfile(**defaults)

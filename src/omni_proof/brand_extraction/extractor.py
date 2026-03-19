@@ -1,6 +1,6 @@
 """BrandExtractor orchestrator."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from uuid import uuid4
 
@@ -36,7 +36,7 @@ class BrandExtractor:
             extractions
         )
 
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         profile = BrandProfile(
             profile_id=str(uuid4()),
             brand_name=brand_name,
@@ -68,7 +68,7 @@ class BrandExtractor:
         )
         conflicts = self._conflict_detector.detect(profile, rules, voice, visual_style)
 
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         updated = BrandProfile(
             profile_id=profile.profile_id,
             brand_name=profile.brand_name,
