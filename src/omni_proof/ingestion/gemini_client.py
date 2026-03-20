@@ -51,7 +51,7 @@ class GeminiClient(EmbeddingProvider):
                     contents=str(content),
                     config=config,
                 )
-                return response.embeddings[0].values
+                return list(response.embeddings[0].values)
             except Exception as e:
                 wait = 2**attempt
                 logger.warning("embed_retry", attempt=attempt, wait=wait, error=str(e))

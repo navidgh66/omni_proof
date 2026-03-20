@@ -19,7 +19,7 @@ class TreatmentDisentangler:
         norm = np.linalg.norm(fingerprint)
         if norm > 0:
             fingerprint = fingerprint / norm
-        return fingerprint
+        return np.asarray(fingerprint)
 
     def orthogonal_projection(
         self,
@@ -31,7 +31,7 @@ class TreatmentDisentangler:
         dot = np.dot(embedding, treatment_fingerprint)
         treatment_component = dot * treatment_fingerprint
         # Subtract to get orthogonal (confounder-only) representation
-        return embedding - treatment_component
+        return np.asarray(embedding - treatment_component)
 
     def disentangle_batch(
         self,

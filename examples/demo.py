@@ -390,7 +390,7 @@ def stage_7_brand() -> dict:
     bullet(f"Typography: {fonts}")
     bullet(f"Voice: {profile['voice']['formality']}, {profile['voice']['emotional_register']}")
     bullet(f"Rules: {len(profile['rules'])} guidelines loaded")
-    return profile
+    return dict(profile)
 
 
 def stage_8_prompt(profile: dict, cate_result: CATEResult) -> None:
