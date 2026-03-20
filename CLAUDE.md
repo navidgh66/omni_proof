@@ -81,6 +81,8 @@ Causal analysis layer needs no API keys — works with local data only.
 - When asked about a specific PR/branch/issue number, scope all actions to that exact item only
 - Repo is private — shields.io badges fail. Use GitHub-native badge URLs or static badges instead.
 - Git local config uses `navidgh66` account — do not change global git config
+- Before pushing, run `gh auth switch --user navidgh66` if 403 errors occur
+- When bumping version, update both `pyproject.toml` AND `AGENTS.md` (version field goes stale)
 
 ## Automations
 
@@ -103,13 +105,16 @@ Causal analysis layer needs no API keys — works with local data only.
 - `generate_embedding` retry loop needs an explicit `raise` after the loop for mypy return-type satisfaction
 - `langchain`/`langgraph` were removed — never imported, were dead dependencies
 - `.ipynb` files: Edit tool is blocked; use NotebookEdit for cell edits or Bash with `python -c` for JSON-level changes (e.g. replacing strings across all cells)
+- Ruff ignores `RUF059` (unused unpacked vars in tests) and `B008` (FastAPI `Depends()` is idiomatic)
+- Community files (`CONTRIBUTING.md`, `SECURITY.md`) live in `.github/`, not repo root
 
 ## Releasing to PyPI
 Tags must be on the `main` branch — the release workflow rejects tags on other branches.
 ```bash
 # 1. Update version in pyproject.toml
-# 2. Update CHANGELOG.md (change "Unreleased" to date)
-# 3. Commit, push to main
+# 2. Update AGENTS.md version
+# 3. Update CHANGELOG.md (change "Unreleased" to date)
+# 4. Commit, push to main
 git tag v0.1.0
 git push origin v0.1.0
 ```
