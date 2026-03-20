@@ -96,6 +96,7 @@ class TestFullE2EPipeline:
         # Stage 3: Causal analysis
         data = generate_synthetic_dataset(n=300, seed=42)
         encoded = _encode_categoricals(data, ["platform", "audience_segment"])
+        encoded["audience_segment"] = data["audience_segment"].values
         confounders = [
             c for c in encoded.columns if c.startswith(("platform_", "audience_segment_"))
         ] + ["budget"]
