@@ -41,7 +41,7 @@ dependencies = [
     "uvicorn>=0.30.0",
     "lightgbm>=4.0.0,<5",
     "numpy>=1.26.0,<3",
-    "pandas>=2.2.0,<3",
+    "pandas>=2.2.0,<4",
     "scikit-learn>=1.4.0,<2",
 ]
 
