@@ -7,6 +7,7 @@
 </p>
 
 <p align="center">
+  <a href="https://pepy.tech/project/omni-proof"><img src="https://img.shields.io/pepy/dt/omni-proof?style=for-the-badge&label=Downloads&color=orange" alt="PyPI Downloads"></a>
   <a href="https://github.com/navidgh66/omni_proof/releases"><img src="https://img.shields.io/github/v/release/navidgh66/omni_proof?style=for-the-badge&label=Release&color=blue" alt="Release"></a>
   <a href="https://github.com/navidgh66/omni_proof"><img src="https://img.shields.io/badge/python-3.11+-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
   <a href="https://github.com/navidgh66/omni_proof/stargazers"><img src="https://img.shields.io/github/stars/navidgh66/omni_proof?style=for-the-badge&color=yellow" alt="Stars"></a>
