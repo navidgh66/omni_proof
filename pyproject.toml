@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "omni-proof"
-version = "0.0.4"
+version = "0.0.5"
 description = "Causal-Multimodal Engine for Creative Performance Attribution"
 requires-python = ">=3.11"
 authors = [{name = "OmniProof Contributors"}]
